@@ -1,0 +1,19 @@
+# Data: untracked by default (see README "A note on data").
+# Add explicit exceptions below for small, public-domain example files
+# (e.g., data/!fred_example.csv) rather than removing this blanket rule.
+data/*
+!data/.gitkeep
+
+# Never track anything that looks like a WRDS pull, even if placed elsewhere.
+*wrds*
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
