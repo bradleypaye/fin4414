@@ -34,7 +34,9 @@ data/          Small example datasets used in notebooks and scripts. See
                "A note on data" below — most data is intentionally NOT tracked here.
 html/          Static HTML exports of the notebooks in notebooks/, for quick viewing
                without running Jupyter. Regenerated from the notebooks, not
-               hand-edited.
+               hand-edited. Currently committed by hand after each notebook
+               change; may move to a script/CI step that regenerates these
+               automatically instead of tracking them in git.
 notebooks/     Jupyter notebooks (Python and/or R) covering course topics.
 python/        Reusable Python modules/utilities shared across notebooks and scripts.
 ```
