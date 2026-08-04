@@ -15,8 +15,12 @@ the course's Canvas site, per university policy. This repo exists to:
 - Demonstrate how a tool like [Claude Code](https://claude.com/claude-code) can be used
   to manage code production, documentation, and repo hygiene throughout a research
   project.
-- Host example notebooks, scripts, and assessment materials referenced during the
-  topic-oriented portion of the course.
+- Host example notebooks and scripts referenced during the topic-oriented portion
+  of the course.
+
+Graded, in-class assessment materials are **not** included here, even though they're
+part of the topic-oriented portion of the course — those stay in Canvas rather than
+a public repo.
 
 Student thesis repos should be **private** (e.g., via GitHub Classroom, with the
 instructor added as a collaborator), not public — see the note on data below for why
@@ -26,10 +30,11 @@ the repo itself is never the system of record for the submission.
 ## Repo structure
 
 ```
-assessments/   Example quizzes, coding exercises, and rubrics used in the
-               topic-oriented portion of the course.
 data/          Small example datasets used in notebooks and scripts. See
                "A note on data" below — most data is intentionally NOT tracked here.
+html/          Static HTML exports of the notebooks in notebooks/, for quick viewing
+               without running Jupyter. Regenerated from the notebooks, not
+               hand-edited.
 notebooks/     Jupyter notebooks (Python and/or R) covering course topics.
 python/        Reusable Python modules/utilities shared across notebooks and scripts.
 ```
