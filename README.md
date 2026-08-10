@@ -38,6 +38,8 @@ html/          Static HTML exports of the notebooks in notebooks/, for quick vie
                change; may move to a script/CI step that regenerates these
                automatically instead of tracking them in git.
 notebooks/     Jupyter notebooks (Python and/or R) covering course topics.
+notes/         Weekly conceptual notes (Markdown) for the topic-oriented portion
+               of the course, cross-referencing the notebooks where relevant.
 python/        Reusable Python modules/utilities shared across notebooks and scripts.
 ```
 
