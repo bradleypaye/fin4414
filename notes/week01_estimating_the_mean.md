@@ -3,9 +3,12 @@
 *First in a series of weekly conceptual notes for the capstone. This week's theme:
 almost everything we do this semester eventually reduces to "we have a finite,
 noisy sample and we want to say something honest about an unknown population
-mean." We'll build that up carefully, using the equity premium as our running
-example, and connect it to the `SampleMeanSimulation.ipynb` and
-`SampleVarianceSimulation.ipynb` notebooks in this repo.*
+mean." We'll build that up carefully and self-containedly, using the equity
+premium as our running example — every result used below is derived, or at
+least sketched, in these notes. The `SampleMeanSimulation.ipynb` and
+`SampleVarianceSimulation.ipynb` notebooks in this repo simulate the same
+setup and are a great way to *watch* these results play out numerically, but
+you shouldn't need either one open to follow the argument.*
 
 ## 1. Why this problem is everywhere
 
@@ -61,9 +64,8 @@ return volatility might be).
 ### 3.1 Three probability facts we're going to lean on
 
 Everything in this section is really just bookkeeping built on top of a
-handful of general facts about expectation and variance — the same ones
-from the mean notebook, stated a bit more carefully so it's clear exactly
-which assumption buys you which result.
+handful of general facts about expectation and variance, stated carefully
+enough that it's clear exactly which assumption buys you which result.
 
 **Fact 1: expectation is linear.** Saying the expectation operator $E(\cdot)$
 is *linear* means that the expectation of a weighted sum equals the weighted
@@ -144,31 +146,134 @@ which is a property of the Normal distribution specifically, not something
 you get for free. Keep that in your back pocket — it's the first thing to go
 once we relax normality in Section 5.
 
-### 3.3 The nuisance parameter problem, and the $t$-distribution
+### 3.3 The sample variance, and where the chi-squared distribution comes from
 
-The formula above requires $\sigma^2$, which we don't know. The natural fix is
-to plug in the unbiased sample variance $s^2$ from
-`SampleVarianceSimulation.ipynb`. But once we replace $\sigma^2$ with an
-*estimate*, we've introduced extra sampling variability, and the standardized
-mean is no longer exactly standard Normal.
+Before we can handle the unknown-$\sigma^2$ problem, we need an estimator of
+$\sigma^2$ itself, and a way to describe its sampling distribution. That
+requires one new distribution — the **chi-squared distribution** — which
+shows up constantly whenever *sums of squares* of Normal variables are
+involved (it will reappear all semester, e.g. in regression $F$-tests and
+$R^2$-based tests).
 
-Here's where two more facts — one you already have, one new — combine to give
-an exact answer. Recall from the variance notebook:
+**Definition.** If $Z_1, \dots, Z_k$ are i.i.d. standard Normal, $N(0,1)$,
+random variables, then their sum of squares
+
+$$W = Z_1^2 + Z_2^2 + \cdots + Z_k^2$$
+
+follows a **chi-squared distribution with $k$ degrees of freedom**, written
+$W \sim \chi^2_k$. "Degrees of freedom" here just counts how many independent
+squared standard-Normal terms went into the sum.
+
+**Properties we'll use** (stated without proof — they follow from the
+definition plus standard facts about the Normal distribution):
+
+1. **Support.** $\chi^2_k \geq 0$ always — it's built from squares, so it can
+   never be negative. Its distribution is right-skewed, especially for small
+   $k$ (it piles up near zero and has a long right tail), and becomes more
+   symmetric and bell-shaped as $k$ grows.
+2. **Mean.** $E(W) = k$.
+3. **Variance.** $\text{Var}(W) = 2k$.
+4. **Additivity.** If $W_1 \sim \chi^2_{k_1}$ and $W_2 \sim \chi^2_{k_2}$ are
+   *independent*, then $W_1 + W_2 \sim \chi^2_{k_1+k_2}$ — chi-squared degrees
+   of freedom add, when you're adding independent chi-squared pieces.
+
+Now define the (unbiased) **sample variance**,
+
+$$s^2 = \frac{1}{T-1}\sum_{t=1}^T (R_t - \bar R)^2$$
+
+the average squared deviation from the *sample* mean, with a $T-1$ (rather
+than $T$) divisor. Here's the guiding idea for why the divisor is $T-1$, and
+where the stated result
 
 $$\frac{(T-1)s^2}{\sigma^2} \sim \chi^2_{T-1}$$
 
-and, under the classical i.i.d. Normal assumptions, $\bar R$ and $s^2$ turn
-out to be *independent* of one another — a special, somewhat surprising fact
-that is itself only exactly true under normality (we won't prove it, but it's
-worth pausing on: the estimator of the mean and the estimator of the spread
-around that mean carry no information about each other, in this setting).
+comes from — a sketch, not a full proof, but enough to see why the pieces fit
+together. Start from something we *do* know how to characterize: since each
+$R_t \sim N(\mu, \sigma^2)$ i.i.d., the standardized deviations
+$(R_t-\mu)/\sigma$ are i.i.d. standard Normal, so by the definition above,
+their sum of squares is *exactly* chi-squared with $T$ degrees of freedom —
+one for each observation:
+
+$$\sum_{t=1}^T \left(\frac{R_t - \mu}{\sigma}\right)^2 \sim \chi^2_T$$
+
+The problem is that this uses the unknown $\mu$; $s^2$ uses $\bar R$ instead.
+The algebraic link between the two comes from a standard "add and subtract
+$\bar R$" decomposition. Writing $R_t - \mu = (R_t - \bar R) + (\bar R - \mu)$
+and expanding the square, the cross term vanishes when summed over $t$
+(because $\sum_t (R_t - \bar R) = 0$ by definition of the sample mean), and
+you're left with the identity
+
+$$\sum_{t=1}^T (R_t - \mu)^2 \;=\; \sum_{t=1}^T (R_t - \bar R)^2 \;+\; T(\bar R - \mu)^2$$
+
+i.e., "total squared deviation from the truth" splits exactly into "squared
+deviation from the sample mean" plus "squared deviation of the sample mean
+from the truth." Dividing through by $\sigma^2$ and relabeling:
+
+$$\underbrace{\sum_{t=1}^T \left(\frac{R_t-\mu}{\sigma}\right)^2}_{\sim\ \chi^2_T \text{ (shown above)}}
+\;=\;
+\underbrace{\frac{(T-1)s^2}{\sigma^2}}_{\text{what we want}}
+\;+\;
+\underbrace{\left(\frac{\bar R - \mu}{\sigma/\sqrt{T}}\right)^2}_{\sim\ \chi^2_1}$$
+
+The last term is chi-squared with **1** degree of freedom because it's the
+square of a *single* standard Normal: we showed in Section 3.2 that
+$\bar R \sim N(\mu, \sigma^2/T)$ exactly, so $(\bar R - \mu)/(\sigma/\sqrt T)$
+is itself standard Normal, and squaring one standard Normal is exactly the
+$k=1$ case of the definition above.
+
+So we have "$\chi^2_T$ total = (unknown piece) + $\chi^2_1$." A deeper result
+called **Cochran's theorem** (named for the statistician William Cochran; we
+won't prove it here, but it's worth knowing the name so you can look it up)
+guarantees two things in settings like this: (a) the two pieces on the
+right-hand side are *independent* of one another, and (b) when a chi-squared
+total is split this way into independent orthogonal pieces, their degrees of
+freedom add, exactly as in Property 4 above. Since the total has $T$ degrees
+of freedom and one piece has $1$, the remaining piece — our piece — must have
+$T - 1$:
+
+$$\frac{(T-1)s^2}{\sigma^2} \sim \chi^2_{T-1}$$
+
+which is the stated result. The intuition for *why* it's $T-1$ and not $T$:
+the $T$ deviations $R_t - \bar R$ are not free to vary independently — they
+are constrained to sum to exactly zero (that's what defines $\bar R$) — so
+only $T-1$ of them carry independent information. One degree of freedom is
+"spent" estimating $\mu$ by $\bar R$. Cochran's theorem is also, as a bonus,
+*why* $\bar R$ and $s^2$ turn out to be **independent** of each other under
+these classical assumptions — a special, somewhat surprising fact (the
+estimator of the mean carries no information about the estimator of the
+spread around it) that we'll use in a moment, and that traces back to exactly
+the same orthogonal decomposition above.
+
+**Two quick corollaries**, both one-liners once you have the distributional
+result and the chi-squared mean/variance from Properties 2–3:
+
+- *Unbiasedness*: $E\!\left[\frac{(T-1)s^2}{\sigma^2}\right] = T-1$ (chi-squared
+  mean, Property 2, with $k=T-1$) $\implies E(s^2) = \sigma^2$.
+- *Spread*: $\text{Var}\!\left[\frac{(T-1)s^2}{\sigma^2}\right] = 2(T-1)$
+  (chi-squared variance, Property 3) $\implies \text{Var}(s^2) =
+  \frac{2\sigma^4}{T-1}$, so $\widehat{\text{SE}}(s^2) = s^2\sqrt{2/(T-1)}$
+  once you plug in $s^2$ for the unknown $\sigma^2$ — exactly the recipe
+  behind the HW 1 confidence interval for the variance.
+
+### 3.4 The nuisance parameter problem, and the $t$-distribution
+
+The formula in Section 3.2 requires $\sigma^2$, which we don't know. The
+natural fix is to plug in the unbiased sample variance $s^2$ from Section
+3.3. But once we replace $\sigma^2$ with an *estimate*, we've introduced
+extra sampling variability, and the standardized mean is no longer exactly
+standard Normal.
+
+Here's where two facts from Section 3.3 combine to give an exact answer:
+$\frac{(T-1)s^2}{\sigma^2} \sim \chi^2_{T-1}$, and $\bar R$ and $s^2$ are
+*independent* of one another (both facts we obtained above from Cochran's
+theorem).
 
 The Student-$t$ distribution with $k$ degrees of freedom is, by definition,
 what you get from dividing a standard Normal by an independent
 $\sqrt{\chi^2_k / k}$. Plugging in $Z = \frac{\bar R - \mu}{\sigma/\sqrt{T}}$
 (standard Normal, from Section 3.2) and $W = \frac{(T-1)s^2}{\sigma^2}$
-(chi-squared with $k = T-1$ degrees of freedom, from the variance notebook),
-the unknown $\sigma$ cancels algebraically:
+(chi-squared with $k = T-1$ degrees of freedom, from Section 3.3), the
+unknown $\sigma$ cancels algebraically:
 
 $$\frac{Z}{\sqrt{W/(T-1)}}
 = \frac{(\bar R - \mu)/(\sigma/\sqrt{T})}{\sqrt{s^2/\sigma^2}}
@@ -176,8 +281,8 @@ $$\frac{Z}{\sqrt{W/(T-1)}}
 \; \sim \; t_{T-1}$$
 
 the Student-$t$ distribution with $T-1$ degrees of freedom — the same $T-1$
-that shows up as the divisor in $s^2$ in the variance notebook. This gives an
-**exact** confidence interval for the equity premium,
+that shows up as the divisor in the definition of $s^2$ in Section 3.3. This
+gives an **exact** confidence interval for the equity premium,
 
 $$\bar R \; \pm \; t_{T-1,\,0.975} \cdot \frac{s}{\sqrt{T}}$$
 
@@ -185,7 +290,8 @@ and an exact hypothesis test (e.g., $H_0: \mu = 0$ — "is there an equity
 premium at all?") using the $t_{T-1}$ distribution rather than the Normal.
 
 **Connecting the dots to HW 1:** the confidence interval you built for the
-*variance* used the recipe $s^2 \pm 1.96 \times \widehat{\text{SE}}(s^2)$.
+*variance*, using the $\widehat{\text{SE}}(s^2)$ formula derived at the end of
+Section 3.3, used the recipe $s^2 \pm 1.96 \times \widehat{\text{SE}}(s^2)$.
 That $1.96$ is a Normal-distribution critical value, even though the *exact*
 distribution of $s^2$ there is a (rescaled) $\chi^2_{T-1}$, not Normal. That
 CI was already quietly leaning on a large-sample Normal approximation, rather
@@ -339,10 +445,13 @@ further, separate departure from independence that we come back to below.
 
 Both examples above are special cases of two much more general theorems.
 
-**Law of Large Numbers (LLN).** You already met this in the mean notebook:
-under just i.i.d. sampling with a finite mean (no Normality needed at all),
-$\bar R \to \mu$ in probability as $T \to \infty$. $\bar R$ is a *consistent*
-estimator of $\mu$ far more generally than it is an *exactly Normal* one.
+**Law of Large Numbers (LLN).** Under just i.i.d. sampling with a finite mean
+(no Normality needed at all), $\bar R \to \mu$ in probability as
+$T \to \infty$ — i.e., for any margin of error you name, however small, the
+probability that $\bar R$ misses $\mu$ by more than that margin shrinks to
+zero as the sample grows. $\bar R$ is a *consistent* estimator of $\mu$ far
+more generally than it is an *exactly Normal* one — you can watch this play
+out numerically in the mean notebook.
 
 **Central Limit Theorem (CLT).** This is the key upgrade, and it's what made
 both examples above work. For i.i.d. data with finite variance $\sigma^2$ —
@@ -370,7 +479,7 @@ $$\frac{\bar R - \mu}{s/\sqrt{T}} \overset{\text{approx}}{\sim} N(0,1)
 
 — approximately justified under i.i.d.-with-finite-variance, rather than
 exactly justified under i.i.d.-Normal. (And since $t_{T-1} \to N(0,1)$ as
-$T \to \infty$, this is consistent with, not a contradiction of, Section 3.3.)
+$T \to \infty$, this is consistent with, not a contradiction of, Section 3.4.)
 
 **What about independence?** This is the piece the LLN/CLT story above still
 assumes, and it's the piece we flagged as most obviously violated for return
@@ -383,7 +492,7 @@ different $R_t$'s, not just their individual variances. The standard practical
 tool for this is a **heteroskedasticity- and autocorrelation-consistent
 (HAC)** standard error, the most common version being **Newey–West**. We
 won't derive this now — just file away the name and the reason it exists: it's
-the Section 3.3 recipe, repaired for dependence.
+the Section 3.4 recipe, repaired for dependence.
 
 One honest caveat: "large enough $T$" is doing a lot of work in this section,
 and *how* large depends on how badly the i.i.d.-Normal assumptions are
