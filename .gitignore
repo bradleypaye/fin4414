@@ -3,6 +3,8 @@
 # (e.g., data/!fred_example.csv) rather than removing this blanket rule.
 data/*
 !data/.gitkeep
+!data/uso_etf_daily.csv
+!data/spy_etf_daily.csv
 
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*

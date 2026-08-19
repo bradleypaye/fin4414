@@ -51,6 +51,11 @@ redistribution, and this repo is meant to model good practice around that:
 - **Public-domain sources** (e.g., FRED — the Federal Reserve's economic data
   service) can be committed to the repo when the file is small. A handful of small
   example FRED extracts may be tracked here for convenience.
+- **Freely available market data** (e.g., daily closing prices for publicly traded
+  ETFs, retrieved from Yahoo Finance) can also be committed when the extract is
+  small. This isn't "public domain" in the same formal sense as FRED, but a small,
+  illustrative extract of daily closing prices carries no redistribution
+  restriction the way a WRDS pull does.
 - **Larger datasets**, even from public sources, are intentionally left **untracked**
   to keep the repo lean — this is itself a practice worth learning: keep raw/large
   data out of version control and instead version the code that generates or
@@ -64,6 +69,16 @@ redistribution, and this repo is meant to model good practice around that:
   ever redistributing the data itself.
 
 See `.gitignore` for how this is enforced in practice.
+
+### Files currently tracked in `data/`
+
+- `uso_etf_daily.csv` — daily closing prices for USO (the United States Oil
+  Fund, an ETF designed to track the spot price of WTI crude oil), August 2020
+  through the present. Retrieved from Yahoo Finance. Used by
+  `notebooks/Security_Returns_Properties.ipynb`.
+- `spy_etf_daily.csv` — daily closing prices for SPY (the SPDR S&P 500 ETF
+  Trust), August 2020 through the present. Retrieved from Yahoo Finance. Used
+  by `notebooks/Security_Returns_Properties.ipynb`.
 
 ## License
 
