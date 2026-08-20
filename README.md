@@ -79,6 +79,12 @@ See `.gitignore` for how this is enforced in practice.
 - `spy_etf_daily.csv` — daily closing prices for SPY (the SPDR S&P 500 ETF
   Trust), August 2020 through the present. Retrieved from Yahoo Finance. Used
   by `notebooks/Security_Returns_Properties.ipynb`.
+- `market_excess_monthly.csv` — monthly U.S. stock market excess returns
+  (`sp500_exret`, in decimal form, e.g. `-0.0047` for -0.47%), January 1926
+  through December 2024. Source: Amit Goyal's data, updated from Goyal and
+  Welch (2008, *Review of Financial Studies*), "A Comprehensive Look at the
+  Empirical Performance of Equity Premium Prediction." Used by
+  `notebooks/Equity_Premium_Inference.ipynb`.
 
 ## License
 
