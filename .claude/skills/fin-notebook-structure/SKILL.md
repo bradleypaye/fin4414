@@ -88,6 +88,36 @@ mind:
   `## Additional Technical Material` guidance above — don't let a derivation quietly
   introduce it in the core content.
 
+## Accessibility
+
+Virginia Tech Policy 7215 (Information Technology Accessibility) requires course
+materials to conform to **WCAG 2.1 Level AA** (plus Section 508). The most relevant,
+concretely checkable rules for these notebooks:
+
+- **Every plot needs real alt text (WCAG 1.1.1).** nbconvert's default "lab" HTML
+  template never emits an `alt` attribute for `image/png` outputs, so every chart
+  silently ends up with the generic placeholder "No description has been provided for
+  this image" in the exported HTML — a hard failure, not a style nitpick. Fix: set
+  `cell.metadata["alt"]` on every *code* cell that produces a plot, to a description of
+  what the plot shows *and* the takeaway a sighted reader would get from it (not just
+  "a scatter plot of X vs Y" — say what the pattern in the data actually is). After
+  exporting with `jupyter nbconvert --to html <notebook>.ipynb --output-dir html`, run
+  `python python/apply_alt_text.py notebooks/<Notebook>.ipynb html/<Notebook>.html` to
+  patch that alt text into the generated HTML (see that script's docstring). Do this
+  for every notebook getting an HTML export, not just new ones — this was a repo-wide
+  gap across every existing export before it was fixed.
+- **Descriptive link text (WCAG 2.4.4).** Never write link text like "here", "click
+  here", or "this link" — a screen-reader user often pulls a list of links out of
+  context, so the link text itself needs to say where it goes (e.g. "[Statistics How
+  To has a good explainer on critical values](...)", not "a good explainer is
+  [here](...)").
+- **Never encode meaning by color alone in a plot (WCAG 1.4.1).** If a plot shades or
+  colors points/bars to convey information (e.g. significance, magnitude, group), it
+  needs a colorbar or legend — a color-only encoding with no key at all is both an
+  accessibility failure and just unreadable for anyone. Where practical, pair color
+  with a second, redundant cue (line style, marker shape, direct labels) rather than
+  relying on hue alone, since hue-only encodings are hardest for colorblind readers.
+
 ## Other conventions
 
 - No stray trailing empty cells — clean these up before considering a notebook done.
