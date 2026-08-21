@@ -58,6 +58,36 @@ notebooks that predate it should be brought into line when touched.
    matrix/vector algebra) needs an explicit, bolded warning saying so and that it's safe to
    skip — don't just label it "(Optional)" in the heading and leave it at that.
 
+## Calibrating technical level
+
+The audience is undergraduates who have had undergraduate probability/statistics and some
+calculus and linear algebra — but treat linear algebra especially as a soft prerequisite,
+not something to lean on by default. Write "Core content" (and any appendix) with this in
+mind:
+
+- **Lead with intuition, not notation.** Before a formula or proof, give the one- or
+  two-sentence plain-English version of what it says and why it should be true, so the
+  formal statement lands as confirming something the reader already half-expects rather
+  than introducing it cold. (E.g. the McDonald's/diversification paragraph that motivates
+  beta before the CAPM math in `CAPM_BivariateRegression.ipynb`, or the "what does this
+  statement even mean?" gloss that follows the GRS formula.)
+- **Don't skip steps in a derivation just because they're routine to us.** If a step is a
+  few lines of algebra a student could follow — why a cross term vanishes when summed, why
+  a substitution is valid, why a particular expectation is zero — show the few lines rather
+  than jumping over them. "It can be shown that..." is for results that are genuinely out
+  of scope, not a shortcut around a derivation step that's merely tedious.
+- **Define, then immediately restate in plain language.** Whenever a new object shows up
+  (a conditional expectation, a covariance matrix, a test statistic), give the formal
+  definition and then a plain-words restatement tied to the running example, before moving
+  on.
+- **Verify results via simulation where practical, not proof alone.** This is already the
+  pattern in `Equity_Premium_Inference.ipynb` (derive a result, then simulate to confirm it
+  numerically) — simulation-based intuition lands better with this audience than a purely
+  analytical argument, and it also catches derivation mistakes.
+- **Matrix/vector notation belongs in the appendix, not the main narrative**, per the
+  `## Additional Technical Material` guidance above — don't let a derivation quietly
+  introduce it in the core content.
+
 ## Other conventions
 
 - No stray trailing empty cells — clean these up before considering a notebook done.
