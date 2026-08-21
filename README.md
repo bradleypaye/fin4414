@@ -87,14 +87,14 @@ See `.gitignore` for how this is enforced in practice.
   `notebooks/Equity_Premium_Inference.ipynb`.
 - `ff_25_portfolios_5x5_monthly.csv` — monthly value-weighted returns (in
   percent) for the 25 Fama-French size- and book-market-sorted portfolios,
-  January 1964 through December 2024. Source: Kenneth French's Data
+  January 1964 through December 2025. Source: Kenneth French's Data
   Library ("25 Portfolios 5x5"), copyright Eugene F. Fama and Kenneth R.
   French. An archival snapshot; `notebooks/CAPM_BivariateRegression.ipynb`
   pulls this same data live via `pandas_datareader` rather than reading
   this file.
 - `ff_factors_monthly.csv` — monthly market excess return (`Mkt-RF`), size
   and value factors (`SMB`, `HML`), and risk-free rate (`RF`), in percent,
-  January 1964 through December 2024. Source: Kenneth French's Data
+  January 1964 through December 2025. Source: Kenneth French's Data
   Library ("F-F Research Data Factors"), copyright Eugene F. Fama and
   Kenneth R. French. Same archival-snapshot relationship to
   `notebooks/CAPM_BivariateRegression.ipynb` as above.
