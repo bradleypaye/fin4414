@@ -6,6 +6,8 @@ data/*
 !data/uso_etf_daily.csv
 !data/spy_etf_daily.csv
 !data/market_excess_monthly.csv
+!data/ff_25_portfolios_5x5_monthly.csv
+!data/ff_factors_monthly.csv
 
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*
