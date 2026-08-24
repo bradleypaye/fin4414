@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capstone Project Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f3f6;
+    --surface: #ffffff;
+    --surface-sunken: #eae7ee;
+    --ink: #201c24;
+    --ink-muted: #5c5765;
+    --accent: #630031;
+    --accent-ink: #ffffff;
+    --accent-soft: #f6e8ec;
+    --accent-border: #d9b7c1;
+    --warn: #7a4400;
+    --warn-soft: #fbedd8;
+    --warn-border: #e3c691;
+    --border: #dcd8e0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #18151d;
+      --surface: #221e28;
+      --surface-sunken: #2a2532;
+      --ink: #ece8ee;
+      --ink-muted: #b1a8b8;
+      --accent: #f28fa6;
+      --accent-ink: #2a0714;
+      --accent-soft: rgba(242, 143, 166, 0.13);
+      --accent-border: rgba(242, 143, 166, 0.35);
+      --warn: #eab168;
+      --warn-soft: rgba(234, 177, 104, 0.13);
+      --warn-border: rgba(234, 177, 104, 0.35);
+      --border: #3a3442;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #18151d;
+    --surface: #221e28;
+    --surface-sunken: #2a2532;
+    --ink: #ece8ee;
+    --ink-muted: #b1a8b8;
+    --accent: #f28fa6;
+    --accent-ink: #2a0714;
+    --accent-soft: rgba(242, 143, 166, 0.13);
+    --accent-border: rgba(242, 143, 166, 0.35);
+    --warn: #eab168;
+    --warn-soft: rgba(234, 177, 104, 0.13);
+    --warn-border: rgba(234, 177, 104, 0.35);
+    --border: #3a3442;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3.2rem 1.6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.6rem;
+  }
+
+  .masthead { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 2.15rem;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .subtitle { color: var(--ink-muted); font-size: 1.02rem; margin: 0; }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.4rem;
+  }
+
+  nav.toc h2 {
+    margin: 0 0 0.7rem;
+    font-size: 1rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 600;
+    border: none;
+    padding: 0;
+  }
+
+  nav.toc ol {
+    columns: 2;
+    column-gap: 2rem;
+    margin: 0;
+    padding-left: 1.2em;
+    font-size: 0.93rem;
+  }
+
+  nav.toc li { margin-bottom: 0.35rem; break-inside: avoid; }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  h2 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+    scroll-margin-top: 1rem;
+  }
+
+  h3 {
+    font-family: "Spectral", serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 1.6rem 0 0.5rem;
+    scroll-margin-top: 1rem;
+  }
+
+  h4 {
+    font-family: "Public Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    margin: 1.2rem 0 0.4rem;
+  }
+
+  section { display: flex; flex-direction: column; }
+
+  p { margin: 0 0 0.85rem; max-width: 72ch; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 0.85rem; }
+  li { margin-bottom: 0.5rem; max-width: 68ch; }
+  li:last-child { margin-bottom: 0; }
+  .criteria-list li, .roadmap-list li { margin-bottom: 0.7rem; }
+
+  strong { font-weight: 600; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+  }
+  .callout.warn { background: var(--warn-soft); border-color: var(--warn-border); border-left-color: var(--warn); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    margin: 0.8rem 0;
+    padding: 0.7rem 1.1rem;
+    border-left: 3px solid var(--border);
+    color: var(--ink-muted);
+    font-style: italic;
+    max-width: 68ch;
+  }
+
+  .example {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    margin: 0.7rem 0;
+  }
+  .example p { margin: 0; max-width: none; }
+  .example + .example { margin-top: -0.2rem; }
+
+  code {
+    background: var(--surface-sunken);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.88em;
+  }
+
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.93rem;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--surface-sunken);
+    font-family: "Spectral", serif;
+    font-weight: 600;
+  }
+
+  .timeline-table .date-cell { font-weight: 600; white-space: nowrap; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  footer { color: var(--ink-muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">FIN 4414 &middot; Fall 2026</p>
+    <h1>Capstone Project Guide</h1>
+    <p class="subtitle">Detailed guidance for completing the Capstone Course Project</p>
+  </header>
+
+  <section id="intro">
+    <p>This document provides detailed guidance for completing the Capstone Course Project in FIN 4414.</p>
+    <p>The capstone project assignment will seem daunting to many of you. You will be asked to conduct an original research analysis and create a formal research paper describing this analysis, as well as present your work publicly. For most students, this assignment exceeds in scope and scale assignments completed in previous courses, perhaps by a significant amount. To manage your stress level and enjoy the class, please keep the following important points in mind:</p>
+    <ul>
+      <li>The project should be exciting! You get to choose a specific research topic. The project will provide an opportunity to pull together all of the skills you have been accumulating in the FBDA major, including financial economics, programming, statistics, machine learning, scientific writing, etc. Your project paper and presentation will showcase just how much you have learned during your time at VT.</li>
+      <li>I am not expecting a research paper that is ready for submission to an academic finance journal. That is simply unrealistic given the single semester within which you will complete your project. Most projects will yield interesting results but conclusions will likely require caveats acknowledging limitations in various ways. These caveats are fine and represent good points to address in the &ldquo;Discussion and conclusion&rdquo; section of your project paper.</li>
+      <li>I will generally respond favorably to capstone projects in which students make a sustained, good-faith effort to conduct research using methods that are as rigorous as possible given their coursework and to produce a well-written paper, a reproducible analysis, and a quality oral presentation. Serious effort is essential, but project grades will ultimately depend on the quality of the submitted work and demonstrated research competency under the grading criteria described in the syllabus.</li>
+    </ul>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#basics">Basic Capstone Project Information and Policies</a></li>
+      <li><a href="#ai-ethics">Ethical Use of AI in the Research Process</a></li>
+      <li><a href="#topic">Selecting an Appropriate Project Topic</a></li>
+      <li><a href="#proposal">Project Proposal Guidelines</a></li>
+      <li><a href="#writing">Writing a Research Paper: Guidelines and Resources</a></li>
+      <li><a href="#citations">Citations and Bibliography</a></li>
+      <li><a href="#repository">Project Repository and Replication Materials</a></li>
+      <li><a href="#presentations">Effective Research Presentations</a></li>
+      <li><a href="#timeline">Course Project Timeline and Key Deadlines</a></li>
+    </ol>
+  </nav>
+
+  <section id="basics">
+    <h2>Basic Capstone Project Information and Policies</h2>
+    <p>The objective of the capstone project is to allow students in the FinTech and Big Data Analytics (FBDA) major to integrate knowledge across different classes and disciplines, including financial economics, mathematics, statistics, computer science and programming, and technical writing. The capstone project takes the form of a student-executed, original, empirical (data-based) research project on a financial topic of interest. The project is faculty-guided and structured, and it will proceed through a series of phases or &ldquo;milestones,&rdquo; including:</p>
+    <ul>
+      <li>An initial project proposal</li>
+      <li>A final project proposal that incorporates faculty feedback</li>
+      <li>An intermediate-stage in-class presentation of the research topic focusing on current results and analyses</li>
+      <li>A preliminary draft of a research paper based on the project</li>
+      <li>A final in-class project presentation</li>
+      <li>Submission of a final project paper and private replication repository</li>
+    </ul>
+    <p>The capstone project may be completed individually or by a team of two students. Teams larger than two are not permitted. Students working in pairs will submit a joint paper and repository, but each student remains responsible for understanding all aspects of the project and for demonstrating that understanding in presentations and responses to questions.</p>
+    <p>Students may work on a topic of their choice subject to my approval. Deviations or modifications to an approved project proposal are possible, but must be discussed and approved with me.</p>
+    <p>Although it is possible that different course projects pertain to the same general or broad topic, there should be significant and easily appreciable differences across projects. Since I will approve topics, I will help resolve any situation in which it is possible that two projects are too closely related.</p>
+  </section>
+
+  <section id="ai-ethics">
+    <h2>Ethical Use of AI in the Research Process</h2>
+    <p>Artificial intelligence tools may be used as research and editorial assistants within the boundaries established in the syllabus and in our class session on the ethical use of AI in research and scholarship. Appropriate uses can include brainstorming research approaches, locating and organizing potentially relevant literature, generating or debugging code, interpreting a specific table or figure, identifying possible limitations, and improving the clarity of student-written text.</p>
+    <div class="callout warn">
+      <p>Students may not delegate substantial authorship or intellectual responsibility to an AI system. In particular, students should not use AI to draft complete paper sections, convert research summaries into a finished literature review, generate substantial prose incorporated with only limited editing, or develop the central argument of the paper. AI-assisted literature searches must be followed by verification that cited works exist, consultation of the original sources, and independent evaluation and synthesis by the student.</p>
+    </div>
+    <p>Students are responsible for verifying all AI-assisted code, citations, statistical results, interpretations, and substantive claims. Restricted, licensed, confidential, or personally identifiable data must not be provided to an AI system. Any nontrivial AI assistance must be disclosed in an acknowledgment or AI-use statement accompanying the final paper. Permissible and disclosed AI assistance will not itself result in a grading penalty. The instructor remains the final academic evaluator of submitted work; an AI-generated assessment is not an authoritative grading source.</p>
+  </section>
+
+  <section id="topic">
+    <h2>Selecting an Appropriate Project Topic</h2>
+    <p>An important, and sometimes challenging aspect of the course project is selecting an appropriate topic. This section is intended to provide guidance in this direction. Students are encouraged to discuss potential project topics with me during office hours, via email, before and after class, etc. Organic discussions of this sort are often the best way to make progress toward a good topic choice.</p>
+    <p>The following list presents some general policies students should keep in mind when evaluating potential topics:</p>
+    <ul class="criteria-list">
+      <li><strong>Finance-oriented:</strong> The topic must focus on a topic that is financial in nature. (The major is FBDA, after all, and not SportsTech, MarketingTech, or something else.) As a concrete example of something that would fall afoul of this policy, I would object if a student proposed to use machine learning methods to leverage a large dataset for prediction of outcomes of NFL football games. Such a topic is potentially interesting, but it is not a finance topic. I would similarly object to a project that focuses on, e.g., forecasting the US unemployment rate. This is another interesting topic, but one that is fundamentally a macroeconomic topic, without an explicit finance connection. Fortunately, finance is a broad field permitting a very wide variety of potential topics.</li>
+      <li><strong>Research, not consulting:</strong> Project topics should be of broad interest, and academic in nature and orientation. In particular, projects should generally not be &ldquo;consulting projects&rdquo; focused on conducting custom analysis for a particular firm, even if the student has a relationship (internship and/or future job) with this firm and the firm is willing to provide data, etc. Similarly, the project should not focus on, e.g., a stock or bond valuation analysis for a particular company. Such topics might be suitable for investment clubs such as SEED or BASIS, but are not sufficiently broad for our purposes. The project should not focus on programming-oriented topics such as creating a fancy online tool, widget, or website, although it is possible that the research output might include something like this (e.g., a website where results of the project analysis can be accessed). The project should address a financial research question of relatively broad interest in a rigorous way using appropriate statistical and data science methods.</li>
+      <li><strong>Data-driven:</strong> Project topics should be empirical (data-driven) in nature. The FBDA major is fundamentally connected with data-based learning and inference. Therefore, projects should not be &ldquo;pure theory&rdquo; or opinion pieces. That said, quality empirical research should have an economic foundation. Thus, it is not the case that you should avoid discussing economic theory with respect to your project and paper. Indeed, it is important to motivate the hypotheses you wish to test. This point simply clarifies that your project must include actual data analyses and not merely discussion and conjecture.</li>
+      <li><strong>Data availability:</strong> Projects must use data that can be obtained from public sources or from appropriately licensed sources available to Virginia Tech students, such as databases accessed through WRDS. The data should be obtainable and cleanable within the time available for the project. A key principle is that project proposals should identify specific data sources and explain the expected sample period, frequency, and unit of observation. This requirement helps avoid a scenario in which a project cannot proceed because the required data are unavailable. Students must also follow all licensing, privacy, and redistribution restrictions associated with the data they use.</li>
+      <li><strong>Rigorous empirical methods:</strong> Projects should adopt rigorous empirical methods and ideally feature statistical and/or machine learning methods that have been introduced in prior courses as well as in our course. In general, projects should not be &ldquo;purely descriptive&rdquo; and instead should focus on one or more clear hypotheses that can be tested via appropriate statistical methods and techniques.</li>
+      <li><strong>Reasonable scope:</strong> the scope of projects should be such that it is reasonable to complete the required empirical analyses within approximately a two-month time frame, accounting for other classes and student responsibilities.</li>
+      <li><strong>Not a &ldquo;replication&rdquo;:</strong> Whatever topic you choose, you are highly unlikely to be the first researcher to consider the topic. This is fine, and in fact expected. The purpose of the &ldquo;literature review&rdquo; in your paper (see paper guidelines below) is to briefly discuss prior research that is topically similar to your project. However, your project should be original to some degree and not merely consist of a step-by-step reconstruction or &ldquo;replication&rdquo; of a particular existing piece of research. As long as you are not deliberately trying to copy another specific study, this should take care of itself &mdash; you will naturally find that there are differences between your own particular methods and conclusions on the subject and those of prior studies. If you have any questions or concerns about this particular policy, please do not hesitate to ask me.</li>
+    </ul>
+    <p>I understand that all of this can seem a bit overwhelming, especially upon first reading. I do not wish to stifle creativity and I encourage students to run with their interests in terms of project topic selection.</p>
+    <p>I will provide examples of some project proposals from previous years, as well as a few potential ideas for new projects. You should not redo previous student projects &mdash; these example proposals are provided as illustrations of what an approved proposal might look like. Regarding my suggestions for potential new projects, even if students are not particularly wild about these topics, I hope that the suggestions will provide concrete examples of how to navigate the project proposal process in a successful manner.</p>
+  </section>
+
+  <section id="proposal">
+    <h2>Project Proposal Guidelines</h2>
+    <p>The project proposal is just what it sounds like: a written document that proposes a particular research topic for the project. It should contain subject matter/hypothesis that your project will cover. In addition, the proposal should clearly explain the data that will be used for the proposed analyses. This includes the source of the data, as well as the time span and frequency of that data. Providing this information will help ensure that your project can actually be completed within the semester and will also help me ascertain whether your data are likely to be sufficient for statistically robust results. You must gain my approval to continue your project, and you must have accurate, clean data to proceed.</p>
+    <p>The following provides a suggested format for the project proposal:</p>
+    <ol class="criteria-list">
+      <li><strong>Background/Reason/Purpose:</strong> This section should provide brief, but clear, background information concerning your research question. A good organizing principle is that this section should clearly address the question of &ldquo;Why should people care about the broad area that your research project will address?&rdquo;</li>
+      <li><strong>Project overview:</strong> This section is the crux of the proposal. Here, you should state as clearly as possible the specific research questions that your project will address. It is generally desirable to have one or more clear hypotheses that you plan to test in conducting your empirical research and analyses.</li>
+      <li><strong>Data Sources:</strong> This section should clearly list the data you intend to collect, including the source or sources, sample period, frequency, unit of observation, and key variables. For example, you might propose to obtain monthly industrial production data from FRED and monthly stock returns from CRSP through WRDS for January 1980 through December 2025. You should identify the precise series and database fields you expect to use and describe any anticipated data-access, licensing, matching, or cleaning issues. If there is uncertainty about whether particular data can be collected, discuss that uncertainty explicitly.</li>
+      <li><strong>Statistical Methods:</strong> This section should clearly describe how you intend to analyze your data and test the key hypotheses mentioned in the Project Overview section (II.). Be as specific as possible. For example, do not say &ldquo;I plan to run regressions involving my data.&rdquo; What regressions, exactly? What is the dependent variable in the regressions you have in mind? What are the independent variables? How will the corresponding regression results allow you to test key hypotheses associated with your proposal? Are there any potential limitations or concerns regarding your approach? How might these be addressed?</li>
+    </ol>
+    <h3>Initial versus Final Proposal</h3>
+    <p>The <strong>initial project proposal</strong> is preliminary. It can be relatively short (1&ndash;2 pages) and should focus on providing a brief overview of the general area in which the proposed project topic falls and highlight some of the specific questions you plan to address. There should be an indication of the data sources that will be used, but it is OK if there is some uncertainty regarding the availability of data at this stage. Specific statistical methods and tests do not need to be ultra-sharp at this stage and it is OK to include only a very brief Section IV.</p>
+    <p>The <strong>final project proposal</strong> is longer (3&ndash;4 pages), and more formal in the sense that it should clearly address all of the topics in the outline provided above. You will have received feedback from me based on the initial proposal at this stage.</p>
+  </section>
+
+  <section id="writing">
+    <h2>Writing a Research Paper: Guidelines and Resources</h2>
+    <p>This section covers general guidelines for writing a paper based on your empirical research. There is a generally accepted format for such papers. The following provides a rough guide to the sections that your paper is likely to contain:</p>
+    <ol>
+      <li>Title</li>
+      <li>Abstract</li>
+      <li>Introduction</li>
+      <li>Literature review (sometimes included in Introduction, sometimes separate)</li>
+      <li>Hypotheses</li>
+      <li>Data and Methods</li>
+      <li>Results</li>
+      <li>Discussion</li>
+      <li>Conclusion (sometimes combined with discussion)</li>
+    </ol>
+    <p>Below, I discuss each of the above sections in further detail. Generally, it makes sense to write the paper &ldquo;inside out&rdquo;: sections 5&ndash;7 are the &ldquo;meat of the paper&rdquo; and generally describe the research that was conducted. In particular, don&rsquo;t worry about drafting the abstract and conclusion until the research is largely complete. However, it can be useful to at least sketch out the introduction section at a relatively early stage, because this will force you to explain the motivation behind your research project and pitch to the reader why your research is of interest and value.</p>
+
+    <h3>Title</h3>
+    <p>The paper title should be descriptive and concise, and highlight the specific area of the analysis. A good way to find the right tone for paper titles is to look at the titles of papers published in finance research journals such as <em>The Journal of Finance</em> or <em>The Journal of Financial Economics</em>. An example of a reasonably informative title might be something like &ldquo;Forecasting US Stock Market Returns using Multiple Measures of Investor Sentiment: A Machine-Learning Approach.&rdquo; Notice how, even if you are not deeply familiar with the area, the title is providing a relatively clear picture regarding the nature of the research. This is much better than a vague, overly broad title such as &ldquo;A Study of Stock Returns.&rdquo; As noted earlier, students should not worry much about the formal paper title until later in the semester, and I am happy to help students arrive at a suitable title.</p>
+
+    <h3>Abstract</h3>
+    <p>A paper abstract provides a brief summary of the paper. It should include the research question, the rationale for the study, the hypothesis (if any), the method and the main findings. Your abstract should not exceed 200 words.</p>
+    <p>The abstract might be the hardest part of a paper to write. This is because you are attempting to distill a relatively complex piece of empirical research into a 150&ndash;200 word summary that captures all of the main elements (research question, methods, results, etc.) In general, you should draft the abstract last, after all of the other paper elements are complete, since the abstract must efficiently summarize these. At the same time, make sure you spend significant time on a clear abstract, which might require several revisions. If you write a poor or sloppy abstract, few readers will be willing to continue reading.</p>
+
+    <h3>Introduction</h3>
+    <p>The introduction to a research paper provides essential background and motivation for the research, describes key hypotheses, summarizes the main findings and results, and places these results in the context of the broader body of scientific work (research) on the topic.</p>
+    <p>Perhaps the best way to get a feel for how to write a paper introduction is to read the introductions of some published papers in finance, especially very influential ones. I will post a number of such papers on Canvas so that you can read the introductions to these papers in order to get a better &ldquo;feel&rdquo; for how to write an effective intro. A good introduction is well-balanced in the sense that it conveys the key hypotheses and results of the paper at a relatively high level, leaving technical nuances and details to the actual paper development that follows.</p>
+    <p>It is hard to write a quality paper introduction, and if you want to do so, expect to spend significant time drafting and re-drafting in order to polish the introduction section of your paper. Time spent here is well worth the effort. Often, the reader has formed a fairly strong opinion about the quality and novelty of the research by the time she has finished reading the Introduction.</p>
+
+    <h3>Literature Review</h3>
+    <p>The literature review section of a paper is just what it sounds like: it provides a survey of existing papers and studies that most closely relate to the author&rsquo;s topic and study. The primary role of the literature review is to place the paper within the general stream of scientific thought regarding the central topics addressed. It is virtually never the case that you (as author) are the first person to consider a particular question or topic. It is therefore important to recognize closely related work and to discuss how your paper differs from this work.</p>
+    <p>Writing an effective literature review requires that you become knowledgeable about related work. Once you have a tentative topic, you should plan to spend substantial time searching for and reading related papers. Search engines, bibliographic databases, and AI-assisted research tools can help identify and organize potentially relevant work, but they are only starting points. You must verify that cited papers exist, consult the original sources, evaluate their relevance and quality, and develop your own synthesis. The literature review should convey the main issues addressed by the related papers and explain how your project differs; it generally should not consist of separate paragraph-long summaries of every paper.</p>
+    <p>As with the paper introduction, a good way to get a good feel for how a literature review should read is to look at example papers from leading finance journals. You will see that some of the example papers that I post will effectively include the &ldquo;literature review&rdquo; as a part of the introduction and not as a separate section. Other papers will place it in a short section that follows the introduction. You have some flexibility to decide what is most appropriate for your paper.</p>
+
+    <h3>Hypotheses</h3>
+    <p>This is an important section of the paper in which you will discuss your hypotheses regarding the key questions addressed in the paper. Even though your paper will be &ldquo;empirical&rdquo; (data-driven), this part of your paper should demonstrate your understanding of financial economics. This does not mean that you need to develop a formal, mathematical theoretical model (in general you should not attempt this), but rather that you should be able to discuss in clear and intuitive terms the economic rationale behind your key hypotheses as well as what are the potential alternatives to your hypothesis.</p>
+    <p>It is perhaps easiest to provide guidance regarding this section with a concrete example. Suppose that my paper will address the question of whether a proxy of uncertainty with respect to US financial conditions predicts future movements in exchange rates relative to the dollar. In the hypotheses section, my paper should discuss the reasons why this question is even interesting. For example, why is the answer to the question not obvious? (If the answer is obvious, then this is unlikely to be a good paper topic!) I would probably begin this section by discussing the &ldquo;efficient markets hypothesis&rdquo; and explain why this hypothesis suggests that it is likely to be difficult to accurately predict future changes in exchange rates. It would be appropriate to include some basic citations regarding the efficient markets hypothesis. (Intuitively, if everyone knew the value of the US dollar relative to the yen would increase significantly over the next month, there would be a very strong financial incentive to buy dollars and sell yen today. But this would drive up the dollar today, rather than over the next month&hellip;) Next, I should explain why, despite the efficient markets hypothesis, it is reasonable to conjecture that a measure of uncertainty with respect to US financial conditions might successfully forecast future exchange rates to some degree. Here I would likely highlight that the efficient markets hypothesis does not rule out the possibility that risk premia (the compensation for bearing risk) can change over time. Thus, there can be some degree of predictability in exchange rates that is not inconsistent with the notion of efficient markets. Again, some citations should be included to support this argument. Next, I would argue why it is plausible that the measure of US financial uncertainty could represent a proxy for the (unobservable) time-varying risk premium that is relevant here.</p>
+    <p>Notice how the above discussion presents my key hypothesis, which is that exchange rates relative to the dollar are predictable to some degree by the financial uncertainty measure, describes the economic rationale for this, but also discusses the alternative, i.e., why it is possible that in fact there is no such predictability. This creates a tension that my statistical analysis will resolve. In other words, the fact that the answer is not obvious makes the statistical analysis that follows interesting and the results important and useful for enhancing our understanding about how real-world currency markets behave.</p>
+
+    <h3>Data and Methods</h3>
+    <p>In this section, you should describe the data used in your empirical analysis clearly and precisely. Do not merely say, for example, &ldquo;I collected stock-return data and additional data on macroeconomic activity.&rdquo; A reader should be able to determine what was measured, where the data came from, the sample period and frequency, how variables were constructed, and what cleaning or filtering steps were applied.</p>
+    <div class="example">
+      <p>A better description would be: &ldquo;I obtained monthly holding-period returns for Nike (NKE) and McDonald&rsquo;s (MCD) from CRSP through WRDS for January 1980 through December 2025. I identified the securities using permanent CRSP identifiers and retained common shares listed on the NYSE, AMEX, or Nasdaq. As a measure of macroeconomic activity, I obtained the monthly Industrial Production: Total Index series (INDPRO) from FRED and computed its monthly log growth rate.&rdquo;</p>
+    </div>
+    <p>The exact details will differ across projects, but your description should provide comparable precision. Do you see how the last data description is precise enough that the reader has a very clear understanding of the specific quantities that are analyzed? It would be quite possible to replicate aspects of the analysis by following this description. You should aim for this level of clarity in describing your data. Note also how additional manipulations of the data are described, such as the particular construction method for monthly returns in my example (you can see that these are in fact &ldquo;log returns&rdquo; based on the description). Similarly, you should clearly describe any data cleaning or filtering steps that are applied to raw data prior to further analysis.</p>
+    <p>After describing the data, some papers will immediately report descriptive statistics and show some basic data visualizations. Other papers might hold off on this until the results section. There is some flexibility here.</p>
+    <p>The &ldquo;Methods&rdquo; portion of this section (sometimes organized under a separate section header) describes the statistical, data science, and econometric methods used to analyze data and test key hypotheses in the paper. Many, although not all, empirical methods are focused around linear regressions. In such cases, you should clearly describe the regression model that you wish to estimate. In order for the regression to be statistically valid, certain assumptions must hold. You should describe as clearly as possible what assumptions are necessary for your analysis to be statistically valid. In some cases, the validity of these assumptions might be questionable and unclear. This should be discussed and, if possible, the analysis should present certain &ldquo;robustness checks&rdquo; designed to show that key results continue to hold under reasonable alternative methods.</p>
+
+    <h3>Results</h3>
+    <p>This section is perhaps the most straightforward section of the paper to write. In it, you report and summarize the key results of the various analyses and tests that you have conducted. Often, it is useful to organize this section via a series of subsections, e.g., 1) Descriptive statistics and data visualizations, 2) Main regression evidence (assuming this is appropriate for your analysis), 3) Robustness checks and additional analyses, and so forth. Largely, you will be walking the reader through a series of tables and figures that constitute your main results.</p>
+    <p>Some pointers:</p>
+    <ul>
+      <li>Tables and figures may be placed inline near the corresponding discussion or collected at the end of the paper. Choose a consistent approach that makes the paper easy to read. In either case, number every exhibit, provide an informative title and explanatory notes, and ensure that the paper text directs the reader to the relevant exhibit.</li>
+      <li>For each table and figure you include in the paper, you should have in mind the main one or two points that you would like the reader to take away from these exhibits. Your paper discussion should then focus on articulating these points as clearly as possible.</li>
+      <li>You do not need to explicitly discuss every number reported in every table, but you should be sure to clearly discuss the main results pertaining to your analysis and tests. As a concrete example, suppose that you are conducting a statistical test that can be framed as a standard linear regression Y = a + bX + cZ + e, and your main interest is in the slope coefficient b on the variable X. Perhaps you have a &ldquo;Table 3&rdquo; that presents results for this regression, estimated over different sample periods and including alternative &ldquo;control&rdquo; variables Z. In the main paper, you should be sure to explicitly discuss the coefficient estimates for b of primary interest that are reported in this table, including issues associated with statistical inference, such as standard errors and a test of the null hypothesis that b = 0 (i.e., the null hypothesis of no relation between Y and X, controlling for Z). You do not necessarily need to discuss in great detail the estimates of the other coefficients a and c in this regression, unless these prove important to the main points you want to make with respect to the result tabulation.</li>
+      <li>When discussing results of statistical analyses, be sure to discuss economic significance, as well as traditional statistical significance. Continuing the regression example above, perhaps you are able to reject the null hypothesis that b = 0 at the 95% confidence level. You should discuss this fact. But you should also discuss the magnitude of your estimate of b, and what it means regarding the effect of X on Y. Be careful here: suppose your estimate of b is 2. This means that a one-unit increase in X is associated with a two-unit increase in Y. But whether this is &ldquo;large&rdquo; or &ldquo;important&rdquo; depends on the units of both Y and X. We will discuss this issue during our &ldquo;regression workshop&rdquo; class during the semester.</li>
+    </ul>
+
+    <h3>Discussion and Conclusion</h3>
+    <p>The final section of the paper plays two main roles. The first is relatively straightforward: you should summarize the paper and main conclusions in an efficient fashion (2&ndash;3 paragraphs). In addition to this, it is often helpful to include some additional discussion regarding two related topics: 1) potential caveats, weaknesses, and limitations of the analysis in the paper; and 2) questions that might be addressed in future research (either yours or by others). To provide a concrete example, suppose a paper addresses the relation between the state of the macroeconomy and security returns by looking (only) at US macroeconomic data and US stock returns. The fact that the paper restricts attention only to the US macroeconomy and does not examine other important asset classes such as government and corporate bonds is a limitation that could be discussed in the concluding section. This topic is therefore also an interesting potential topic for future research, and this can be explicitly stated in the concluding section of the paper.</p>
+    <p>In general, it makes sense to hold off on drafting the discussion and/or conclusion sections of your paper until relatively late in the research process. For example, there is little point burning time on drafting a concluding section when the actual results from your main empirical tests are still uncertain.</p>
+
+    <h3>Back Matter (References, Tables, etc.)</h3>
+    <p>Your paper will include back matter following the main text. Typically, this will include some subset of the following; tables and figures need not be repeated here if they are placed inline:</p>
+    <ul>
+      <li>Bibliography (formatted set of references corresponding to citations in the paper &mdash; see the citations section below)</li>
+      <li>Appendices (if applicable)</li>
+      <li>Figures</li>
+      <li>Tables</li>
+    </ul>
+    <p>The bibliography section is required, and virtually all project papers in this class should contain at least one table and at least one figure (generally multiple). Not all papers will include an Appendix. However, in some circumstances doing so would be appropriate. As an example, suppose that the project performs some complicated data processing steps, such that discussing these in the main text of the paper would bog down the discussion and burden readers. Then it would be appropriate to collect the details of the data processing steps in an Appendix that is included in the back matter, so that interested readers can access this information conveniently, but uninterested readers can move through the main paper more efficiently. You are welcome to ask me if an Appendix structure makes sense for your paper.</p>
+  </section>
+
+  <section id="citations">
+    <h2>Citations and Bibliography</h2>
+    <p>Appropriate attribution is a critical component of academic research papers. This section provides general guidance regarding both when you should include citations in your paper and how to cite the literature.</p>
+
+    <h3>When to Cite?</h3>
+    <p>It can be challenging to understand when it is necessary to include citations to prior work, especially for students who might be writing a formal research paper for the first time. In general, any time that your paper utilizes language, insights, or conclusions from existing research, you should provide attribution (acknowledgment) to this research by including a citation. Here are several examples:</p>
+    <div class="example">
+      <p>You wish to make the point that correlations between stock and bond index returns change over time. This viewpoint is based on existing research results. Therefore, you need to provide one or more citations to work that establishes the conclusions or results that you reference in your paper. It is best not to just find the first arbitrary paper that comes up via a Google search on the topic. Instead, you should spend some time looking at some literature in the area to identify some of the earlier and more influential or prominent papers that establish the key result. In the current example, you might write something like: &ldquo;Previous literature finds evidence of significant time variation in the correlation between returns on a broad portfolio of US stocks and bonds (see, e.g., Guidolin and Timmermann (2006), Connolly, Stivers, and Sun (2005), and Baele, Bekaert, and Inghelbrecht (2010)).&rdquo; Note that I have not attempted to cite every paper on this topic. That is not required. Instead, I have identified three representative papers that appeared in prominent finance journals on the topic and made relatively early contributions in the area. The full citations to these three articles would appear in the bibliography section of your paper.</p>
+    </div>
+    <div class="example">
+      <p>You are motivating a study regarding nonlinear effects in predictive models for aggregate stock returns, and you wish to make the point that models that appear to perform well &ldquo;in-sample&rdquo; often struggle to perform well using &ldquo;out-of-sample&rdquo; designs, such that there is an overfitting issue. This insight is based on previous academic research, and so you should include a citation to one or more related papers. In this case, you might cite the Goyal and Welch (2008) paper that we have discussed in class.</p>
+    </div>
+    <div class="example">
+      <p>You are computing the &ldquo;realized correlation&rdquo; at the quarterly frequency using underlying daily or intradaily returns for two assets. Because you did not invent the idea or approach of realized correlation, you should provide citations to relevant papers. As with previous examples, do not simply cite the first paper that comes up on an arbitrary Google search of the term. Instead, you should spend a bit of time to try and find some of the more important and influential papers on the topic, and cite these. (In this particular case, several papers by Torben Andersen, Tim Bollerslev, and Frank Diebold in the early 2000s are the most important references.)</p>
+    </div>
+    <p>You are welcome to ask me for help regarding whether a particular statement requires citations to the literature. You can also ask me for guidance regarding what are the more important references on a particular topic in cases when this is not obvious.</p>
+    <p>In general, most citations should be to academic research papers rather than broad news-media articles. It is nevertheless acceptable and often useful to cite a financial-media article when motivating the practical importance of a research topic. For example, a paper on the time-varying stock-bond correlation might cite a <a href="https://www.wsj.com/finance/investing/investing-stocks-bonds-strategy-changing-91b7589d">2023 Wall Street Journal article</a> discussing the unusually poor performance of the traditional 60-40 investment strategy. Such a source can establish practical motivation, but it should not substitute for engagement with the relevant academic literature.</p>
+
+    <h3>How to Cite?</h3>
+    <p>In general, you should follow APA 7 author-date citation guidelines. The basic principles are summarized below, and the linked Purdue OWL resources provide additional guidance.</p>
+    <p>Your citations should generally appear in &ldquo;author-date&rdquo; form within the text of your paper. As a concrete example, a citation would appear as &ldquo;Following Jones (2019), I adjust stock returns for market exposure by estimating market betas using daily data over the preceding six months.&rdquo; Another example based on a hypothetical literature review discussion is &ldquo;Although multivariate stock return forecasting models might perform well in-sample, prior research including, for example, Goyal and Welch (2008), indicates that such models often fail to outperform the historical average benchmark out-of-sample.&rdquo;</p>
+    <p>As long as you are referring to an idea from another work but <strong>not</strong> explicitly quoting that work, you only have to make reference to the author(s) and year of publication and not the page number(s) in your in-text reference. However, if you directly quote from another work, you should indicate the specific pages of the work from which the quote is obtained, e.g., (Jones, 1998, pp. 99&ndash;101).</p>
+    <p>For every in-text citation, include a complete entry in the References section at the end of the paper. See Purdue OWL guidance on <a href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_basic_rules.html">APA reference-list basics</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html">journal-article references</a>, and <a href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html">electronic sources</a>. Most references in a project paper should be to academic journal articles.</p>
+  </section>
+
+  <section id="repository">
+    <h2>Project Repository and Replication Materials</h2>
+    <p>Each project must be developed and submitted as a private GitHub repository. Students will create the repository using the naming convention and setup instructions posted on Canvas and must add the instructor and any course teaching assistants as collaborators. No paid GitHub plan is required. The repository link and final paper must be submitted through Canvas; Canvas, not GitHub, is the official system of record for course submissions.</p>
+    <p>The repository should contain the Python code or Jupyter notebooks needed to reproduce the project&rsquo;s principal results, along with documentation and supporting materials for the final paper. The central requirement is that I should be able to follow the documentation, run the code in a reasonably straightforward fashion, and reproduce the key reported findings. Any deviation from Python should be discussed with me in advance.</p>
+    <p>Include a README file that explains the repository structure, the order in which scripts or notebooks should be run, required software and packages, expected inputs, and the outputs produced. The repository should be maintained throughout the semester through periodic, logically scoped commits with informative messages. A small number of massive end-of-semester commits will not demonstrate good version-control practice and will result in a lower repository/replication grade.</p>
+    <div class="callout warn">
+      <p>The repository must remain private during and after the course. Do not commit licensed or restricted raw data, access credentials, API keys, personally identifiable information, or other material that may not be redistributed. When raw data cannot be included, provide authorized acquisition code or sufficiently detailed instructions for recreating the analytical dataset. If a dataset is unusually large or cannot be reacquired by the instructor, discuss an alternative replication arrangement with me in advance.</p>
+    </div>
+    <p>AI tools may assist with coding or the Git workflow, but students remain responsible for understanding, testing, and documenting all submitted code and for acknowledging nontrivial AI assistance.</p>
+  </section>
+
+  <section id="presentations">
+    <h2>Effective Research Presentations</h2>
+    <p>Your research presentation should generally follow the arc of the underlying research paper. In particular, the presentation should be structured in the same general way as the paper, e.g.,</p>
+    <ol>
+      <li>Introduction and motivation</li>
+      <li>Key hypotheses</li>
+      <li>Data</li>
+      <li>Main empirical results and tests</li>
+      <li>Conclusions</li>
+    </ol>
+    <p>The intermediate and final presentations are important graded components of the Course Project. They will be evaluated not only as prepared talks but also as demonstrations of each student&rsquo;s command of the research. At least as much weight will be placed on substantive competency and responses during the question-and-answer period as on slide aesthetics, organization, and delivery style.</p>
+    <p>Some additional guidelines for effective presentations are as follows:</p>
+    <ul class="criteria-list">
+      <li>Deliver your talk with presence and energy. If you don&rsquo;t even seem excited about your own research project, then it is highly unlikely that your audience will be engaged in your talk.</li>
+      <li>The introduction to your talk should be structured as a 3&ndash;4 minute overview of the entire paper. Specifically, you should aim to briefly summarize the paper as described below, but without going into excessive detail on any element (you will provide the details in the remainder of your talk): describe the general question or area of your project and motivate why this is interesting; summarize your key hypotheses and the methods you use to test these hypotheses; summarize the main results and conclusions; and very briefly discuss how your paper/project relates to existing academic work on your topic.</li>
+      <li>Prepare explicitly for questions. You should be able to justify the research question and hypotheses; explain the data sources, sample construction, and variable definitions; defend the choice of empirical methods and the assumptions required for valid inference; interpret coefficient magnitudes, uncertainty, statistical significance, and economic significance; explain tables and figures without relying on scripted text; and discuss robustness, limitations, alternative explanations, and connections to prior research. For paired projects, each student is individually responsible for all of these elements. A response that a partner handled an analysis, or that an AI system produced it, will not demonstrate adequate command of the project.</li>
+      <li>Do not overcrowd your slides. You do not need to (and should not) saturate slides with text and then deliver the presentation by literally reading the text on your slides. Instead, make use of simple, shorter bullet points that are visually easier for the audience to process. You should be sufficiently comfortable with your research project that you can verbally elaborate regarding the simple bullet points that serve as visual guidelines.</li>
+      <li>Make use of graphs and figures where possible. It is OK to include some result tabulations (tables) in your slides, but do not overdo it. Avoid especially crowded tables stuffed with results in small font that are very difficult for the audience to see and absorb. This often means that you will want to modify and/or simplify tabulations in the paper, which tend to be more elaborate, to produce simpler, more stripped-down tabulations for your slides. Figures often work better than tables in presentations, and another &ldquo;trick&rdquo; is to convert results from tabular format to a figure for the presentation. As a concrete example, suppose you have a key regression specification that involves multiple variables, but the key coefficient is the &ldquo;beta&rdquo; with respect to a particular &ldquo;X&rdquo; variable. In the paper, you might report the complete regression results, including coefficients and standard errors for the intercept and all variables. But, for the presentation, it might make sense to report only a figure that shows, for example, a bar graph of the key &ldquo;beta&rdquo; estimates, with standard error bands indicated, for different variations of your main regression tests. This helps the audience focus on the main results and tests in your paper.</li>
+      <li>Speak clearly and with good pacing. Practice your talk several times in advance so that you have a relatively good sense of timing. For example, if your talk length is 20 minutes, you do not want to get only halfway through your slides and suddenly realize that your time is up. On the other hand, you also do not want to rush through the slides and finish eight minutes early, leaving the audience struggling to keep up with and digest your presentation. Again, practice delivering the talk in advance.</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section id="timeline">
+    <h2>Course Project Timeline and Key Deadlines</h2>
+    <p>This section summarizes the key project phases and deadlines for convenient reference.</p>
+    <div class="callout">
+      <p><strong>Note:</strong> the deadlines below are tentative. I will try to maintain them, but there is a possibility I will make an adjustment if needed due to unforeseen circumstances.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="timeline-table">
+        <tr><th>Phase / Element</th><th>Date(s)</th><th>Time</th><th>Format</th></tr>
+        <tr>
+          <td>Preliminary Topic Presentations</td>
+          <td class="date-cell">September 24 and 29</td>
+          <td>In class (two sessions)</td>
+          <td>In-class activity</td>
+        </tr>
+        <tr>
+          <td>Initial Project Proposal</td>
+          <td class="date-cell">October 4</td>
+          <td>11:59 p.m.</td>
+          <td>Online via Canvas</td>
+        </tr>
+        <tr>
+          <td>Final Project Proposal</td>
+          <td class="date-cell">October 11</td>
+          <td>11:59 p.m.</td>
+          <td>Online via Canvas</td>
+        </tr>
+        <tr>
+          <td>Intermediate Project Presentations</td>
+          <td class="date-cell">November 5, 10, and 12</td>
+          <td>In class (up to three sessions)</td>
+          <td>In-class activity</td>
+        </tr>
+        <tr>
+          <td>Preliminary Project Paper</td>
+          <td class="date-cell">November 22</td>
+          <td>11:59 p.m.</td>
+          <td>Online via Canvas</td>
+        </tr>
+        <tr>
+          <td>Final Project Presentations</td>
+          <td class="date-cell">December 3 and 8</td>
+          <td>Class sessions; possible special sessions TBA</td>
+          <td>In-class or special session</td>
+        </tr>
+        <tr>
+          <td>Final Paper and Private Repository</td>
+          <td class="date-cell">December 13</td>
+          <td>11:59 p.m.</td>
+          <td>Paper and repository link via Canvas</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <footer>
+    <p>FIN 4414 &middot; Capstone Project Guide &middot; Fall 2026 &middot; Virginia Tech</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
