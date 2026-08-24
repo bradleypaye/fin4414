@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIN 4414 GitHub Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f3f6;
+    --surface: #ffffff;
+    --surface-sunken: #eae7ee;
+    --ink: #201c24;
+    --ink-muted: #5c5765;
+    --accent: #630031;
+    --accent-ink: #ffffff;
+    --accent-soft: #f6e8ec;
+    --accent-border: #d9b7c1;
+    --warn: #7a4400;
+    --warn-soft: #fbedd8;
+    --warn-border: #e3c691;
+    --border: #dcd8e0;
+    --placeholder-bg: #fde68a;
+    --placeholder-ink: #3a2e00;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #18151d;
+      --surface: #221e28;
+      --surface-sunken: #2a2532;
+      --ink: #ece8ee;
+      --ink-muted: #b1a8b8;
+      --accent: #f28fa6;
+      --accent-ink: #2a0714;
+      --accent-soft: rgba(242, 143, 166, 0.13);
+      --accent-border: rgba(242, 143, 166, 0.35);
+      --warn: #eab168;
+      --warn-soft: rgba(234, 177, 104, 0.13);
+      --warn-border: rgba(234, 177, 104, 0.35);
+      --border: #3a3442;
+      --placeholder-bg: #4a3c05;
+      --placeholder-ink: #f5dc8a;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #18151d;
+    --surface: #221e28;
+    --surface-sunken: #2a2532;
+    --ink: #ece8ee;
+    --ink-muted: #b1a8b8;
+    --accent: #f28fa6;
+    --accent-ink: #2a0714;
+    --accent-soft: rgba(242, 143, 166, 0.13);
+    --accent-border: rgba(242, 143, 166, 0.35);
+    --warn: #eab168;
+    --warn-soft: rgba(234, 177, 104, 0.13);
+    --warn-border: rgba(234, 177, 104, 0.35);
+    --border: #3a3442;
+    --placeholder-bg: #4a3c05;
+    --placeholder-ink: #f5dc8a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3.2rem 1.6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.6rem;
+  }
+
+  .masthead { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 2.15rem;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    color: var(--ink-muted);
+    font-size: 1.02rem;
+    margin: 0;
+  }
+
+  h2 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-wrap: balance;
+  }
+
+  .overview h2 { color: var(--accent); }
+
+  .step-num {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: var(--accent-ink);
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  h3 {
+    font-family: "Spectral", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin: 1.3rem 0 0.4rem;
+  }
+
+  p { margin: 0 0 0.85rem; max-width: 62ch; }
+  p:last-child { margin-bottom: 0; }
+
+  .lede { color: var(--ink-muted); max-width: 66ch; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+
+  .callout.warn {
+    background: var(--warn-soft);
+    border-color: var(--warn-border);
+    border-left-color: var(--warn);
+  }
+
+  .callout p { max-width: none; }
+
+  code {
+    background: var(--surface-sunken);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.88em;
+  }
+
+  pre {
+    background: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    font-size: 0.86rem;
+    max-width: 100%;
+  }
+
+  pre code { background: none; padding: 0; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 0.85rem; }
+  li { margin-bottom: 0.4rem; max-width: 60ch; }
+  li:last-child { margin-bottom: 0; }
+
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-variant-numeric: tabular-nums;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.94rem;
+  }
+
+  th {
+    background: var(--surface-sunken);
+    font-family: "Spectral", serif;
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .placeholder {
+    background: var(--placeholder-bg);
+    color: var(--placeholder-ink);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.88em;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .step { display: flex; flex-direction: column; }
+
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .faq dt {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .faq dd {
+    margin: 0.25rem 0 0;
+    color: var(--ink-muted);
+    max-width: 62ch;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  footer {
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">FIN 4414 &middot; Course Project &middot; Fall 2026</p>
+    <h1>GitHub Setup Instructions</h1>
+    <p class="subtitle">Field Projects (FinTech Capstone Course)</p>
+  </header>
+
+  <p class="lede">This page walks through everything you need to do, from
+  creating a GitHub account through submitting your repository link at the
+  end of the semester. (Some of you may recall a GitHub feature called
+  "Classroom" from other courses &mdash; GitHub is discontinuing it, so this
+  semester you'll set up your project repository yourself, which is
+  actually the more common way people use GitHub day to day.) If anything
+  here doesn't match what you're seeing on GitHub's website (their interface
+  changes from time to time), ask on Canvas or in office hours and we'll get
+  it sorted out.</p>
+
+  <div class="callout">
+    <p><strong>No rush &mdash; do this when you're ready.</strong> You don't
+    need to create your repository right away. In fact, it makes sense to
+    wait until you know whether you're working solo or with a partner, since
+    that determines your repository name (Step 2) and who needs collaborator
+    access (Step 3). Just have everything set up well before you need to
+    submit a repository link for a course milestone.</p>
+  </div>
+
+  <section class="overview">
+    <h2>Overview</h2>
+    <ol>
+      <li>Create a free GitHub account (skip if you already have one).</li>
+      <li>Create a new <strong>private</strong> repository for your project.</li>
+      <li>Add the instructor and TA as collaborators.</li>
+      <li>Set up the repository structure and clone it to your computer.</li>
+      <li>Commit and push your work regularly throughout the semester.</li>
+      <li>Submit the repository link through Canvas.</li>
+    </ol>
+  </section>
+
+  <hr class="divider">
+
+  <div class="steps">
+
+    <section class="step" id="step-1">
+      <h2><span class="step-num">1</span>Create a GitHub Account</h2>
+      <p>If you don't already have one, go to
+      <a href="https://github.com/signup">github.com/signup</a> and create a
+      free account. A free account is all you need for this course &mdash; no
+      paid plan required.</p>
+      <ul>
+        <li>Use an email address you check regularly; you'll receive
+        collaborator invitations and notifications there.</li>
+        <li>Choose a professional-looking username. This account is worth
+        keeping long-term as part of your professional portfolio, so avoid
+        anything you'll be embarrassed by in a job interview.</li>
+      </ul>
+    </section>
+
+    <section class="step" id="step-2">
+      <h2><span class="step-num">2</span>Create a New Private Repository</h2>
+      <ol>
+        <li>Once logged in, click the <strong>+</strong> icon in the
+        top-right corner of GitHub and select <strong>New repository</strong>.</li>
+        <li>
+          <strong>Repository name:</strong> use the course naming convention:
+          <pre><code>fin4414-f26-lastname</code></pre>
+          If you're working with a partner, include both last names in
+          alphabetical order, separated by a hyphen:
+          <pre><code>fin4414-f26-lastname1-lastname2</code></pre>
+          <p>Example: a student named Priya Shah working individually would
+          name her repository <code>fin4414-f26-shah</code>. A pair, Priya
+          Shah and Alex Diaz, would use <code>fin4414-f26-diaz-shah</code>.</p>
+        </li>
+        <li><strong>Visibility:</strong> select <strong>Private</strong>.
+        This is required &mdash; do not make your project repository public.
+        Your empirical work may involve data (e.g., from WRDS) that cannot
+        legally be redistributed, and a public repository would violate the
+        university's data-licensing agreements.</li>
+        <li>Check <strong>Add a README file</strong>.</li>
+        <li>Under <strong>Add .gitignore</strong>, select the
+        <strong>Python</strong> template.</li>
+        <li>Click <strong>Create repository</strong>.</li>
+      </ol>
+      <div class="callout warn">
+        <p><strong>Double-check visibility.</strong> It's easy to
+        accidentally leave a repository public. After creating it, go to
+        <strong>Settings</strong> (in your repository) and confirm under
+        <strong>Danger Zone</strong> that it says "Change repository
+        visibility" with the repo currently <strong>Private</strong>.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-3">
+      <h2><span class="step-num">3</span>Add the Instructor and TA as Collaborators</h2>
+      <ol>
+        <li>In your new repository, go to
+        <strong>Settings &rarr; Collaborators</strong> (under "Access" in the
+        left sidebar).</li>
+        <li>Click <strong>Add people</strong>.</li>
+        <li>Add the following GitHub usernames, one at a time:</li>
+      </ol>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Role</th><th>Name</th><th>GitHub username</th></tr>
+          <tr><td>Instructor</td><td>Bradley Paye</td><td><code>bradleypaye</code></td></tr>
+          <tr><td>Course TA</td><td>Om Nawthale</td><td><span class="placeholder">TA_GITHUB_USERNAME &mdash; to be posted on Canvas</span></td></tr>
+        </table>
+      </div>
+      <p>Grant <strong>Write</strong> access (the default) so we can review
+      your commit history, not just read the final state of the repo.</p>
+      <p>We'll receive an email invitation and need to accept it &mdash; this
+      doesn't happen automatically, so don't worry if we don't show up as
+      collaborators immediately. Confirm both invitations show as pending or
+      accepted under the Collaborators page before your first proposal
+      deadline.</p>
+    </section>
+
+    <section class="step" id="step-4">
+      <h2><span class="step-num">4</span>Structure Your Repository</h2>
+      <p>Model your repository's structure and workflow on the course's
+      public companion repository:
+      <a href="https://github.com/bradleypaye/fin4414">github.com/bradleypaye/fin4414</a>
+      (also linked on Canvas). You don't need to copy it exactly, but a
+      similar structure works well for an empirical finance project:</p>
+      <pre><code>data/          Small, redistributable example data only (see note below)
+notebooks/     Jupyter notebooks with your analysis
+python/        Reusable Python modules/functions shared across notebooks
+README.md      Explains the repo structure, how to run things, and what
+               each file does</code></pre>
+      <div class="callout warn">
+        <p><strong>Be careful with WRDS-sourced data</strong> (CRSP,
+        Compustat, etc.). The real risk is committing <em>raw or lightly
+        filtered records</em> pulled directly from WRDS &mdash; e.g., a CSV
+        of security-level daily returns or accounting variables &mdash;
+        since that amounts to redistributing the licensed dataset itself,
+        which Virginia Tech's license agreements prohibit regardless of file
+        size. Heavily processed research outputs &mdash; summary statistics,
+        regression results, constructed factors or indices, aggregated
+        tables &mdash; are the normal contents of a research repository and
+        are fine to commit; they don't let anyone reconstruct the underlying
+        licensed panel. Committing the <em>code</em> that pulls and
+        processes WRDS data (e.g., a script using the <code>wrds</code>
+        Python package) is always fine and keeps your analysis reproducible.
+        If you're unsure whether a specific file crosses the line, ask the
+        instructor or TA before committing it. Small extracts of genuinely
+        public data (e.g., FRED series, or free daily ETF prices from Yahoo
+        Finance) are fine to commit outright. See the "A note on data"
+        section of the companion repo's README for a fuller explanation and
+        examples.</p>
+      </div>
+      <p>Your README should explain: the repository structure, the order in
+      which notebooks/scripts should be run, required packages, expected
+      inputs, and the outputs produced &mdash; enough that the instructor can
+      reproduce your key results by following it.</p>
+    </section>
+
+    <section class="step" id="step-5">
+      <h2><span class="step-num">5</span>Clone the Repository to Your Computer</h2>
+      <p>You'll need <a href="https://git-scm.com/downloads">Git</a>
+      installed locally. If you'd rather use a graphical tool instead of the
+      command line, <a href="https://desktop.github.com/">GitHub Desktop</a>
+      works well and covers everything below through its interface.</p>
+      <p>From the command line:</p>
+      <pre><code>git clone https://github.com/YOUR-USERNAME/fin4414-f26-lastname.git
+cd fin4414-f26-lastname</code></pre>
+      <p>Replace the URL with the one shown on your repository's main page
+      (green <strong>&lt;&gt; Code</strong> button &rarr; HTTPS tab).</p>
+    </section>
+
+    <section class="step" id="step-6">
+      <h2><span class="step-num">6</span>Commit and Push Regularly</h2>
+      <p>As you make progress &mdash; cleaning data, writing analysis code,
+      drafting sections of your paper's supporting materials &mdash; commit
+      your changes with a short, informative message and push to GitHub:</p>
+      <pre><code>git add .
+git commit -m "Add initial data-cleaning script for CRSP monthly returns"
+git push</code></pre>
+      <p>Per the syllabus, your repository/replication grade reflects how the
+      repository was maintained over the semester, not just its final
+      contents. <strong>Commit periodically in logically scoped chunks</strong>
+      &mdash; after each meaningful step of progress &mdash; rather than
+      making one or two massive commits at the end of the semester. A
+      repository history showing only late, last-minute activity will result
+      in a lower repository/replication grade, even if the final code is
+      correct.</p>
+      <p>If you're new to Git, two good places to start are GitHub's own
+      <a href="https://github.com/git-guides">Git Guides</a> and the
+      <a href="https://www.atlassian.com/git/tutorials">Atlassian Git
+      tutorial</a> &mdash; both walk through the core commands
+      (<code>clone</code>, <code>add</code>, <code>commit</code>,
+      <code>push</code>, <code>pull</code>) without assuming prior
+      experience.</p>
+      <p><strong>Use an AI assistant for this &mdash; it helps a lot.</strong>
+      Figuring out Git purely from documentation can be slow and
+      frustrating. The instructor routinely uses AI coding assistants (e.g.,
+      Claude Code) to manage commits, resolve merge conflicts, and untangle
+      Git mistakes, and genuinely recommends doing the same: it can be a
+      real game-changer compared to sorting out Git commands entirely on
+      your own. As with any AI-assisted work, you remain responsible for
+      understanding what happened to your repository and being able to
+      explain it.</p>
+    </section>
+
+    <section class="step" id="step-7">
+      <h2><span class="step-num">7</span>Submit Your Repository Link Through Canvas</h2>
+      <p>At each relevant milestone (and with your final paper), submit the
+      link to your private repository through the Canvas assignment
+      &mdash; <strong>not</strong> by emailing it or posting it anywhere
+      else. Canvas, not GitHub, is the official system of record for course
+      submissions.</p>
+    </section>
+
+  </div>
+
+  <hr class="divider">
+
+  <section class="faq">
+    <h2>Troubleshooting / FAQ</h2>
+    <dl class="faq">
+      <dt>I made my repository public by accident &mdash; what do I do?</dt>
+      <dd>Go to <strong>Settings &rarr; Danger Zone &rarr; Change
+      visibility</strong> and switch it back to Private immediately. If you
+      had already committed any restricted data, also remove it from the
+      file and from the Git history (ask the instructor or TA for help
+      &mdash; this is more involved than a normal delete, since old commits
+      still contain the file).</dd>
+
+      <dt>I get "Permission denied" when I try to push.</dt>
+      <dd>This usually means Git isn't authenticated with your GitHub
+      account. GitHub no longer accepts your account password for this
+      &mdash; you'll need to set up a
+      <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">personal
+      access token</a> or, more simply, install
+      <a href="https://desktop.github.com/">GitHub Desktop</a> and sign in
+      there, which handles authentication for you.</dd>
+
+      <dt>My partner and I both need push access &mdash; how do we do that?</dt>
+      <dd>If you're working in a pair, add your partner as a collaborator the
+      same way you added the instructor and TA (Step 3), in addition to the
+      instructor and TA. Only one of you needs to create the repository.</dd>
+
+      <dt>Can I use an organization or a different hosting service instead of
+      a personal repository?</dt>
+      <dd>Stick with a personal private repository on GitHub.com unless
+      you've discussed an alternative with the instructor in advance.</dd>
+
+      <dt>Do I need a paid GitHub plan for a private repository?</dt>
+      <dd>No. GitHub's free plan includes unlimited private repositories with
+      collaborators &mdash; this hasn't changed with the retirement of GitHub
+      Classroom.</dd>
+    </dl>
+  </section>
+
+  <hr class="divider">
+
+  <footer>
+    <p>Questions not answered here? Ask during office hours, before/after
+    class, or post on Canvas.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
