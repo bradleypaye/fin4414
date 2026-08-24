@@ -22,10 +22,12 @@ Graded, in-class assessment materials are **not** included here, even though the
 part of the topic-oriented portion of the course — those stay in Canvas rather than
 a public repo.
 
-Student thesis repos should be **private** (e.g., via GitHub Classroom, with the
-instructor added as a collaborator), not public — see the note on data below for why
-that matters. Students submit a link to their repo (and their paper) through Canvas;
-the repo itself is never the system of record for the submission.
+Student thesis repos should be **private**, created by the student following the
+naming convention and setup instructions posted on Canvas, with the instructor and
+any course teaching assistants added as collaborators — not public — see the note on
+data below for why that matters. Students submit a link to their repo (and their
+paper) through Canvas; the repo itself is never the system of record for the
+submission.
 
 ## Repo structure
 

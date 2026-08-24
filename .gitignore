@@ -22,3 +22,8 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Office lock files
+~$*.doc*
+~$*.xls*
+~$*.ppt*
