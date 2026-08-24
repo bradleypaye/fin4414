@@ -35,6 +35,15 @@ notebooks that predate it should be brought into line when touched.
      assuming the notebook lives in `notebooks/` and `data/` is a sibling folder.
    - **Package dependencies**: list them, note they're standard Anaconda packages except
      any that aren't, and give the `pip install ...` fallback.
+   - **Viewing the HTML export in Canvas**: a one- or two-line note that if equations show
+     up as raw LaTeX source (e.g. `$...$`) instead of typeset math, don't use Canvas's
+     built-in file preview — download the file and open it locally in a browser instead.
+     (Cause: the HTML export typesets math via MathJax loaded from a CDN at view time;
+     Canvas's file-preview sandboxes uploaded HTML and blocks that script from running, so
+     the LaTeX source is left unrendered. Opening the downloaded file directly in a browser
+     has no such sandbox, so it renders correctly.) Include this even though it reads oddly
+     inside the notebook/JupyterLab itself, since the point is for it to survive into the
+     HTML export where the problem actually shows up.
 
 4. **Motivating hook** — before diving into theory/derivations, ground the notebook in a
    concrete example or dataset (a real market event, a real anomaly) that motivates why the
