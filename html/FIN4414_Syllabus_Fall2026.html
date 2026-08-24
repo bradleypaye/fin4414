@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIN 4414 Syllabus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f3f6;
+    --surface: #ffffff;
+    --surface-sunken: #eae7ee;
+    --ink: #201c24;
+    --ink-muted: #5c5765;
+    --accent: #630031;
+    --accent-ink: #ffffff;
+    --accent-soft: #f6e8ec;
+    --accent-border: #d9b7c1;
+    --warn: #7a4400;
+    --warn-soft: #fbedd8;
+    --warn-border: #e3c691;
+    --border: #dcd8e0;
+    --cat-core: #1f5fa8;
+    --cat-project: #2f7a52;
+    --cat-presentation: #9c6510;
+    --cat-assessment: #630031;
+    --cat-break: #6b6572;
+    --row-presentation: #fdf1da;
+    --row-break: #f1f0f2;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #18151d;
+      --surface: #221e28;
+      --surface-sunken: #2a2532;
+      --ink: #ece8ee;
+      --ink-muted: #b1a8b8;
+      --accent: #f28fa6;
+      --accent-ink: #2a0714;
+      --accent-soft: rgba(242, 143, 166, 0.13);
+      --accent-border: rgba(242, 143, 166, 0.35);
+      --warn: #eab168;
+      --warn-soft: rgba(234, 177, 104, 0.13);
+      --warn-border: rgba(234, 177, 104, 0.35);
+      --border: #3a3442;
+      --cat-core: #7fb3e8;
+      --cat-project: #7ecb9e;
+      --cat-presentation: #e0ac5c;
+      --cat-assessment: #f28fa6;
+      --cat-break: #a89fb0;
+      --row-presentation: rgba(224, 172, 92, 0.10);
+      --row-break: rgba(255, 255, 255, 0.04);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #18151d;
+    --surface: #221e28;
+    --surface-sunken: #2a2532;
+    --ink: #ece8ee;
+    --ink-muted: #b1a8b8;
+    --accent: #f28fa6;
+    --accent-ink: #2a0714;
+    --accent-soft: rgba(242, 143, 166, 0.13);
+    --accent-border: rgba(242, 143, 166, 0.35);
+    --warn: #eab168;
+    --warn-soft: rgba(234, 177, 104, 0.13);
+    --warn-border: rgba(234, 177, 104, 0.35);
+    --border: #3a3442;
+    --cat-core: #7fb3e8;
+    --cat-project: #7ecb9e;
+    --cat-presentation: #e0ac5c;
+    --cat-assessment: #f28fa6;
+    --cat-break: #a89fb0;
+    --row-presentation: rgba(224, 172, 92, 0.10);
+    --row-break: rgba(255, 255, 255, 0.04);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3.2rem 1.6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.6rem;
+  }
+
+  .masthead { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 2.15rem;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .subtitle { color: var(--ink-muted); font-size: 1.02rem; margin: 0; }
+
+  .contact-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.9rem 1.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+  }
+
+  .contact-card dt {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin: 0 0 0.15rem;
+  }
+
+  .contact-card dd { margin: 0; font-size: 0.96rem; }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.4rem;
+  }
+
+  nav.toc h2 {
+    margin: 0 0 0.7rem;
+    font-size: 1rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 600;
+    border: none;
+    padding: 0;
+  }
+
+  nav.toc ol {
+    columns: 2;
+    column-gap: 2rem;
+    margin: 0;
+    padding-left: 1.2em;
+    font-size: 0.93rem;
+  }
+
+  nav.toc li { margin-bottom: 0.35rem; break-inside: avoid; }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  h2 {
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+    scroll-margin-top: 1rem;
+  }
+
+  h3 {
+    font-family: "Spectral", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+    margin: 1.6rem 0 0.5rem;
+  }
+
+  h4 {
+    font-family: "Public Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 1.2rem 0 0.4rem;
+  }
+
+  section { display: flex; flex-direction: column; }
+
+  p { margin: 0 0 0.85rem; max-width: 72ch; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 0.85rem; }
+  li { margin-bottom: 0.4rem; max-width: 68ch; }
+  li:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 600; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+  }
+  .callout.warn { background: var(--warn-soft); border-color: var(--warn-border); border-left-color: var(--warn); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    margin: 0.8rem 0;
+    padding: 0.7rem 1.1rem;
+    border-left: 3px solid var(--border);
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  code {
+    background: var(--surface-sunken);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: 0.88em;
+  }
+
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.93rem;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--surface-sunken);
+    font-family: "Spectral", serif;
+    font-weight: 600;
+  }
+
+  .grading-table td:first-child, .grading-table th:first-child { text-align: center; white-space: nowrap; }
+  .grade-scale { max-width: 380px; }
+  .grade-scale td:first-child { white-space: nowrap; }
+
+  .schedule-table th { text-align: left; }
+  .schedule-table .date-cell { white-space: nowrap; font-weight: 600; font-size: 0.9rem; }
+  .schedule-table .focus-cell { min-width: 260px; }
+  .schedule-table .deadline-cell { min-width: 170px; }
+  .schedule-table .deadline-cell strong { color: var(--accent); }
+  .cat-label {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-right: 0.35em;
+  }
+  .cat-core { color: var(--cat-core); }
+  .cat-project { color: var(--cat-project); }
+  .cat-presentation { color: var(--cat-presentation); }
+  .cat-assessment { color: var(--cat-assessment); }
+  .cat-break { color: var(--cat-break); }
+  .focus-desc { display: block; color: var(--ink-muted); font-size: 0.9rem; margin-top: 0.15rem; }
+  tr.row-presentation td { background: var(--row-presentation); }
+  tr.row-assessment td { background: var(--accent-soft); }
+  tr.row-break td { background: var(--row-break); font-style: italic; color: var(--ink-muted); }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.9rem;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  footer { color: var(--ink-muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">FIN 4414 &middot; Section 85819 &middot; Fall 2026</p>
+    <h1>Field Projects (FinTech Capstone Course)</h1>
+    <p class="subtitle">Tuesdays and Thursdays, 12:30&ndash;1:45 PM &middot; DDS 160 (trading room)</p>
+  </header>
+
+  <dl class="contact-card">
+    <div><dt>Instructor</dt><dd>Bradley Paye (Associate Professor)</dd></div>
+    <div><dt>Email</dt><dd><a href="mailto:bpaye@vt.edu">bpaye@vt.edu</a></dd></div>
+    <div><dt>Office</dt><dd>Pamplin Hall (PAM) 1019</dd></div>
+    <div><dt>Office hours</dt><dd>T/TH, 10&ndash;11 AM, in person in PAM 1019, or by appointment</dd></div>
+    <div><dt>Canvas site</dt><dd><a href="https://canvas.vt.edu/courses/235529">canvas.vt.edu/courses/235529</a></dd></div>
+    <div><dt>Course TA</dt><dd>Om Nawthale</dd></div>
+  </dl>
+
+  <p>Email is the preferred method of contact. I will also maintain a course website in Canvas. I will make liberal use of the &ldquo;Announcements&rdquo; feature in Canvas to notify students of important course-related information. It is therefore important that students closely monitor the Canvas site for the course.</p>
+
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#course-description">Course Description</a></li>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#objectives">Course Objectives</a></li>
+      <li><a href="#expectations">Course Expectations</a></li>
+      <li><a href="#materials">Required Texts, Materials, or Equipment</a></li>
+      <li><a href="#structure">Course Structure</a></li>
+      <li><a href="#project">Course Project</a></li>
+      <li><a href="#homework">Homework Assignments</a></li>
+      <li><a href="#exam">Exam</a></li>
+      <li><a href="#participation">Class Participation</a></li>
+      <li><a href="#grading">Course Grading</a></li>
+      <li><a href="#policies">Course Policies</a></li>
+      <li><a href="#additional-policies">Additional Policies</a></li>
+      <li><a href="#resources">Resources for Students</a></li>
+      <li><a href="#disclaimer">Disclaimer Concerning Modifications</a></li>
+      <li><a href="#schedule">Schedule of Topics, Assignments, and Deadlines</a></li>
+    </ol>
+  </nav>
+
+  <section id="course-description">
+    <h2>Course Description</h2>
+    <p>This course synthesizes and extends prior coursework within the FinTech and Business Data Analytics (FBDA) major. The course offers students the opportunity to apply learned concepts via a managed research project. This course project involves appropriately framing a research question and relevant hypotheses, gathering and analyzing data, understanding relevant financial issues and questions, conducting appropriate statistical analyses, and presenting analyses, conclusions, and recommendations in oral and written form. In conjunction with executing the course project, we will review key finance topics in a manner that integrates financial economics, statistical and machine learning methods, and programming techniques.</p>
+  </section>
+
+  <section id="prerequisites">
+    <h2>Prerequisites</h2>
+    <p>(BIT 3424 or FIN 3414) and (BIT 3484 or CMDA 3654 or CS 3654 or STAT 3654) and FIN 3114 and FIN 3144 and FIN 3154. This course serves to fulfill the capstone course requirement for the FBDA major. Therefore, students must be FBDA majors to enroll.</p>
+  </section>
+
+  <section id="objectives">
+    <h2>Course Objectives</h2>
+    <p>Students who complete this course successfully will be able to:</p>
+    <ul>
+      <li>Apply statistical methods (including linear regression, time series models, volatility models and/or machine learning methods) to address financial research hypotheses</li>
+      <li>Develop a suitable hypothesis for a financial research question</li>
+      <li>Discuss ethical principles and norms of conduct in the research process</li>
+      <li>Construct relevant financial datasets</li>
+      <li>Analyze data with descriptive and inferential statistics</li>
+      <li>Justify research findings and analyses effectively in oral presentations and written documents</li>
+      <li>Discuss limitations or caveats associated with the research process</li>
+      <li>Compose computer code that replicates research results</li>
+      <li>Assemble citations and a bibliography of relevant research and articles</li>
+      <li>Critically assess peer quantitative finance research projects</li>
+    </ul>
+  </section>
+
+  <section id="expectations">
+    <h2>Course Expectations</h2>
+    <p>Students are expected to be comfortable with material covered in earlier required courses in the FinTech major. This includes concepts in 1) financial economics, and especially the content covered in Financial Analytics (FIN 3134) and Investments (FIN 3144), 2) mathematics including linear algebra and calculus, and 3) statistics and probability, including the basics of probability theory and statistical analysis up to and including linear regression. It is also expected that students have a solid foundation in coding in Python. Students who enter the class with a weak foundation in mathematics and statistics may find the course challenging. That said, I will review key concepts, and I am willing to help students and suggest other resources for help with these fundamentals.</p>
+    <p>Students should expect to spend more time outside of class meetings for this course relative to typical courses. The Course Project (discussed below) is time-consuming. In addition, students should expect to spend significant time on weekly homework assignments that involve coding, data analysis, and interpretation of results, especially during the first 10 weeks of the course. It is difficult to predict exactly how many hours might be required, and this is likely to vary across students. However, an expectation of an average of 6&ndash;10 hours of work/week outside of class meetings is reasonable.</p>
+  </section>
+
+  <section id="materials">
+    <h2>Required Texts, Materials, or Equipment</h2>
+    <ul>
+      <li><strong>Computing/Programming:</strong> Python (local install, or via Anaconda, JupyterLabs, etc.) We will also make use of various Python packages, so students should possess familiarity with installing such packages on their system.</li>
+      <li><strong>GitHub account and Git:</strong> A free GitHub account is required for the Course Project; no paid plan is needed. Detailed setup and access instructions will be posted on Canvas.</li>
+      <li><strong>Readings:</strong> There is no &ldquo;textbook&rdquo; that students need to obtain. Occasionally I will assign readings. These readings may include review articles covering topics in finance, statistics, machine learning, or other related topics, as well as articles concerning the research process, or examples of research articles. The readings, or links to the readings, will be posted on the Canvas page for the course.</li>
+      <li><strong>Jupyter workbooks, slides, and other materials:</strong> I will often utilize Jupyter workbooks during the course. I will post these workbooks on Canvas and/or on GitHub so that students can download and run the workbooks. For some topics, I may post slides, notes, or other materials on Canvas for students to review.</li>
+      <li><strong>Canvas page for the course</strong></li>
+    </ul>
+  </section>
+
+  <section id="structure">
+    <h2>Course Structure</h2>
+    <p>The course will be structured such that each class meeting either emphasizes topics in financial economics and related fields, or alternatively the course project (discussed in detail below). These two tracts are not separate but closely related. The topics we cover as a group involve many of the most common topics and methods that arise in financial research. Thus, it is critical that students possess a solid foundation with respect to these elements. Most course projects will directly apply concepts and methods from the group sessions and Python examples from these sessions are likely to be very useful in completing projects. Class meetings will often be oriented around a Python-based Jupyter notebook that illustrates financial research methods with &ldquo;real world&rdquo; data-based examples. Students will then typically be assigned a Python-based homework assignment that reinforces and extends coverage of the topic. Some class meetings will focus on students&rsquo; course projects, with the specific focus evolving depending on the stage of completion of the project. For example, early sessions will focus on selecting appropriate project topics and accessing common data sources. Later in the semester, sessions will focus on structuring and writing an effective research paper, interim presentations of analyses, and so forth. The last few weeks of the course will be solely focused on the course project.</p>
+  </section>
+
+  <section id="project">
+    <h2>Course Project</h2>
+    <p>The &ldquo;Course Project&rdquo; or simply &ldquo;Project&rdquo; is a central element of the course. The Course Project consists of a managed research project that students will complete during the semester. The main deliverables will include a submitted project paper as well as an in-class oral presentation of the research project. In addition to these final elements, students will be responsible for meeting various milestones related to the project throughout the semester. These milestones will include, for example, an initial short project proposal, a subsequent final proposal, and an intermediate in-class presentation of progress. Students may complete the Project individually or in a team of two students. Teams larger than two are not permitted. Students working in pairs will submit a joint paper and repository, but each student remains responsible for understanding all aspects of the project and for demonstrating that understanding in presentations and responses to questions.</p>
+    <p>Students should understand that the Project will take a significant amount of time to complete, irrespective of whether the project is completed individually or with a project partner. The scope and scale of the Project are likely to be greater than most assignments that students have previously encountered. It is essential to begin work relatively early and make steady progress throughout the semester. Students should not expect to complete an adequate project in 2&ndash;3 weeks at the end of the semester. As discussed below, there will be regular group homework assignments that are intended to ensure that all students are comfortable with many of the foundational elements of methods and statistical techniques used in financial research.</p>
+    <p>I will provide students with a Course Project Guide. This document will provide detailed policies concerning the project and guidance on various dimensions of the project. Students may work on finance-related topics of their choice for the project; however, I must approve project topics. Any deviations from final, approved, project proposals must be explicitly discussed with me.</p>
+
+    <h3>Project Presentations</h3>
+    <p>The intermediate and final oral presentations are important components of the Course Project. These presentations will be evaluated not only as prepared talks but also as demonstrations of each student&rsquo;s command of the research. Students must be prepared to explain and defend the project&rsquo;s research design and empirical methodology, interpret the results carefully, relate the project and paper to relevant prior research, and discuss assumptions, limitations, and potential weaknesses in the analysis. Responses to questions about these and other aspects of the project will be an important part of the presentation grade.</p>
+    <p>Aesthetics, organization, visual design, and delivery style will receive consideration. However, at least as much weight will be placed on the research competency conveyed during the presentation and question-and-answer period. Students must submit their presentation slides through Canvas by the announced deadline in advance of each presentation. I will review these slides beforehand and prepare questions. Thus, students should expect substantive questions tailored to their own research.</p>
+
+    <h3>Project Repository and Replication Materials</h3>
+    <p>Each research project will be developed and submitted as a private GitHub repository. The repository should follow the structure and workflow modeled in the course&rsquo;s public companion repository, which will be linked through Canvas. This repository will contain course-specific code files, notebooks, documentation, and other supporting materials.</p>
+    <p>Project repositories will be created directly by students, following the naming convention and setup instructions posted on Canvas. A free GitHub account is required for the Course Project; no paid GitHub plan is needed. Each repository must remain private for the duration of the course. Students must add the instructor and any course teaching assistants as collaborators on the repository. Students should treat repository privacy as a continuing requirement: a repository associated with the project paper should not be made public because the empirical work may use licensed or otherwise restricted data, including data obtained through WRDS, that cannot be redistributed. Maintaining privacy helps avoid violations of Virginia Tech&rsquo;s licensing arrangements with data vendors.</p>
+    <p><strong>Repository workflow and commit history.</strong> The repository/replication grade will reflect not only the final contents of the repository but also how the repository was maintained during the semester. Students should make periodic, logically scoped &ldquo;commits&rdquo; with informative comments and push those commits to the private repository as their research progresses. It is permissible to use AI tools to assist with Git commands, commit messages, or the commit-and-push workflow. However, a small number of massive batch commits made near the end of the course will not demonstrate good version-control practice and this will result in a lower grade for the repository/replication component.</p>
+    <p>The final paper and a link to the private repository are due on <strong>Sunday, December 13</strong>, and must be submitted through Canvas according to the posted instructions. Canvas&mdash;not GitHub&mdash;is the official system of record for course submissions. Step-by-step instructions for creating a GitHub account, creating and privately configuring the course repository, and adding the instructor and course teaching assistants as collaborators will be posted on the course Canvas page.</p>
+    <p>I encourage students to discuss potential topics and details with me during office hours, before and after class, etc. My aim is to help students select suitable project topics that involve interesting research questions and that are feasible to complete within a single semester. I will try to head off potential difficulties that might arise with respect to project proposals, including, for example, cases where suitable data might be very difficult to obtain, or where the scope of proposed work exceeds what can reasonably be accomplished within a semester.</p>
+    <p>As discussed in the Grading section of the syllabus, the Course Project comprises a significant proportion of the total course grade. The overall Project grade will be determined by performance on a variety of milestones, including, e.g., the project proposal, final paper, and final presentation. Details are provided in the Course Grading section of the syllabus.</p>
+  </section>
+
+  <section id="homework">
+    <h2>Homework Assignments</h2>
+    <p>I will post assignments periodically in conjunction with topics covered. These assignments will review concepts discussed in class. The assignments will generally require students to analyze data (provided by me) using Python coding and appropriate statistical methods. The deliverables will include Python code that generates the key statistical analyses as well as a written discussion and interpretation of the corresponding results. Some homework assignment exercises will focus on students&rsquo; facility with key statistical concepts and methods (as opposed to coding that executes methods). These exercises are the best way to prepare for the only exam during the course.</p>
+    <p>Students will have around one week to complete each assignment. There will not be assignments for the final few weeks of the course to allow students to fully focus on the course project. Each assignment will be graded on a 10-point basis. At the end of the semester, I will average the scores across these assignments, and this average (converted to a 100-point scale) will be used for the &lsquo;Homework Assignments&rsquo; component of the course grade discussed later in this syllabus. In computing the average score across assignments, I will drop the lowest assignment score for each student. This policy covers situations in which a student has difficulty completing a HW assignment in a timely fashion for a variety of reasons including, e.g., illness. Although the student will receive a &ldquo;zero,&rdquo; this will have no impact on the final grade assuming that all other assignments are submitted. Second, given the relatively heavy workload in this class, the policy allows students to selectively opt out of an assignment if this helps with time management, especially if the assignment topic is less relevant to the student&rsquo;s project topic. Given the above policy, I will not generally accept late homework submissions, so plan to submit assignments in advance of deadlines to be safe.</p>
+    <p>See below in the syllabus for policies regarding help and collaboration on assignments.</p>
+  </section>
+
+  <section id="exam">
+    <h2>Exam</h2>
+    <p>There will be a single in-class exam during the course. There is no separate final examination; the final paper and private repository serve as the end-of-semester submission. The exam will take place during a class session in the latter portion of the course (see class schedule for a tentative exam date). The exam will focus on assessing students&rsquo; competency with respect to the main topics covered in class up to that point. As the exam approaches, I will make an announcement that states clearly the set of topics that will be covered. The exam will be written and will not require you to write code. Exam questions may take a variety of forms including:</p>
+    <ul>
+      <li>Conceptual questions pertaining to financial and statistical concepts that we cover.</li>
+      <li>Questions that ask you to derive key results mathematically given stated assumptions.</li>
+      <li>Questions that ask you to interpret and critique presented output from financial data analyses</li>
+    </ul>
+    <p>A student who cannot attend the scheduled exam because of illness, an emergency, or another university-recognized circumstance should contact me before the exam whenever reasonably possible. Arrangements for a makeup examination will be determined based on the circumstances and may require appropriate documentation. An unexcused missed exam will receive a score of zero.</p>
+  </section>
+
+  <section id="participation">
+    <h2>Class Participation</h2>
+    <p>I expect all students to attend class regularly. In the event of illness or other circumstances that preclude attending class, students should contact me via email, prior to class whenever possible. Participation in class will include providing feedback on other students&rsquo; work (in-class presentation and/or preliminary papers). I expect students to give honest, constructive feedback in a respectful manner. I will frequently take attendance at the beginning of class. Unexcused absences will adversely impact course grades, and I reserve the right to adjust course grades downward for (repeated) unexcused absences. If I have significant concerns about attendance or other aspects of participation, I will contact you to discuss the issue. I will assign grades for the class participation component of the course score on a subjective basis, accounting not only for class attendance rates, but also for evidence of quality participation throughout the semester. For any Class Participation score below 90 out of 100 points, I will include commentary indicating the reasoning behind the assigned grade.</p>
+    <p>I expect that all interactions in class will be civil, respectful, and supportive of an inclusive learning environment. Should any students have concerns about classroom participation and classroom dynamics, I encourage them to speak with me or with the department chair (Dr. Raman Kumar).</p>
+  </section>
+
+  <section id="grading">
+    <h2>Course Grading</h2>
+    <p>Grades will be assigned based on each student&rsquo;s &ldquo;Course Score.&rdquo; The Course Score is computed as a weighted average of scores (out of 100 points) for different course elements (see below). Course scores are then mapped to letter grades as described below.</p>
+    <p>The following list shows, for each graded component of the course, the corresponding percentage (%) of the total course grade:</p>
+    <ul>
+      <li><strong>Course Project:</strong> 60% of total grade (see breakdown below)</li>
+      <li><strong>Homework Assignments:</strong> 10% of total grade</li>
+      <li><strong>Class Participation:</strong> 10% of total grade</li>
+      <li><strong>Exam:</strong> 20% of total grade</li>
+    </ul>
+
+    <p>The Course Project component of the course score will be divided into components based on a 100-point scale. Explicit graded components are as follows:</p>
+    <div class="table-wrap">
+      <table class="grading-table">
+        <tr><th>Points</th><th>Project Milestone</th><th>Description</th></tr>
+        <tr><td>0</td><td>Initial project proposal</td><td>Brief one- or two-page early proposal sketch; no formal grade</td></tr>
+        <tr><td>10</td><td>Final project proposal</td><td>Formal project proposal (roughly 3&ndash;4 pages)</td></tr>
+        <tr><td>15</td><td>Intermediate in-class presentation</td><td>20-minute presentation covering the project, current results, and anticipated future work</td></tr>
+        <tr><td>15</td><td>Preliminary project paper</td><td>Early draft of the project paper; see the course guide for details</td></tr>
+        <tr><td>25</td><td>Final project presentation</td><td>Final presentation of the completed project</td></tr>
+        <tr><td>10</td><td>Replication repository and code</td><td>Private GitHub repository with replication materials and evidence of regular, well-documented commit-and-push practices</td></tr>
+        <tr><td>25</td><td>Final project paper</td><td>Final written project paper</td></tr>
+      </table>
+    </div>
+
+    <p>The mapping between course scores and letter grades will be as follows:</p>
+    <div class="table-wrap">
+      <table class="grade-scale">
+        <tr><td>93% and above</td><td>A</td></tr>
+        <tr><td>90&ndash;92.9%</td><td>A&minus;</td></tr>
+        <tr><td>87&ndash;89.9%</td><td>B+</td></tr>
+        <tr><td>83&ndash;86.9%</td><td>B</td></tr>
+        <tr><td>80&ndash;82.9%</td><td>B&minus;</td></tr>
+        <tr><td>77&ndash;79.9%</td><td>C+</td></tr>
+        <tr><td>73&ndash;76.9%</td><td>C</td></tr>
+        <tr><td>70&ndash;72.9%</td><td>C&minus;</td></tr>
+        <tr><td>67&ndash;69.9%</td><td>D+</td></tr>
+        <tr><td>63&ndash;66.9%</td><td>D</td></tr>
+        <tr><td>60&ndash;62.9%</td><td>D&minus;</td></tr>
+        <tr><td>&lt;60%</td><td>F</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="policies">
+    <h2>Course Policies</h2>
+
+    <h3>Use of Mobile Devices</h3>
+    <p>Students may use laptops, tablets, phones, and other devices for course-related coding, note-taking, data analysis, and presentation activities. Device use that distracts the student or others from class activities is not permitted.</p>
+
+    <h3>Support for Learning</h3>
+    <p>If there are aspects of this course that prevent you from learning or exclude you, please let me know as soon as possible. Together we will develop strategies to meet both your needs and the requirements of the course.</p>
+
+    <h3>Python as Coding Language</h3>
+    <p>Python is the coding language for this course. The choice to focus on Python in this course builds naturally from required elements of the FinTech major, including CS 1064 (Introduction to Programming in Python) and FIN 3114 (Python/SQL for Data Analytics and Finance). Virtually all class examples will utilize the Python language, including additional Python packages such as Pandas, NumPy, and Scikit-Learn. Homework assignments and the course project will require numerical data processing and statistical analyses. These should be coded in Python. If a student feels that there is an extraordinary reason to use some other coding language for some aspect of course project work, then that student should discuss the issue with me and seek explicit approval to code in an alternative language.</p>
+    <p><strong>Python coding help:</strong> My formal training is in economics and finance. I use a variety of programming tools in my own research. I do not consider myself an &ldquo;expert&rdquo; Python programmer. I find that there are a wide variety of easily accessible help resources available online, and I can often sort out how to accomplish my task in this way. I also frequently use Claude Code and other AI-assisted coding capabilities. I encourage you to do the same as discussed below in this syllabus. The course TA will focus on providing support for research-based coding tasks and will also provide recommendations for AI-assisted support. Specific opportunities for receiving help from the course TA will be communicated in class and posted on Canvas. As discussed below, you are also welcome to ask fellow students for help on assignments. However, if you receive significant help from a fellow student on a homework assignment, you should write a brief acknowledgment with your submission, as discussed in further detail below in the syllabus.</p>
+
+    <h3>Academic Honesty</h3>
+    <p>The Undergraduate Honor Code will be strictly enforced in this course. Any suspected violation of the Honor Code will be reported to the Honor System for review. There are no informal warnings or second chances in lieu of reporting a suspected violation.</p>
+    <p>Academic-integrity expectations apply equally to in-person and electronically submitted work. Unauthorized use of technology or outside resources, including Chegg, CourseHero, artificial-intelligence systems, or similar services, may constitute an Honor Code violation. AI assistance that is expressly permitted under the policies below is authorized only when it remains within the stated boundaries and is disclosed when disclosure is required.</p>
+    <blockquote>The Virginia Tech Honor Code Pledge for assignments and exams is: &ldquo;I have neither given nor received unauthorized assistance on this assignment/exam.&rdquo;</blockquote>
+    <p>Students may be required to write or electronically affirm this pledge on graded work. The Honor Code applies to an assignment even when the written pledge is absent.</p>
+    <blockquote>The Undergraduate Honor Code pledge that each member of the university community agrees to abide by states: As a Hokie, I will conduct myself with honor and integrity at all times. I will not lie, cheat, or steal, nor will I accept the actions of those who do.</blockquote>
+    <p>Students enrolled in this course are responsible for abiding by the Honor Code. A student who has doubts about how the Honor Code applies to any assignment is responsible for obtaining specific guidance from the course instructor before submitting the assignment for evaluation. Ignorance of the rules does not exclude any member of the University community from the requirements and expectations of the Honor Code.</p>
+    <p>For additional information about the Honor Code, please visit <a href="https://honorsystem.vt.edu/">honorsystem.vt.edu</a>.</p>
+    <p>The following policies provide additional, specific information concerning course policies involving academic honesty.</p>
+
+    <h4>Plagiarism</h4>
+    <p>Students are expected to assiduously avoid plagiarism with respect to the Course Project, including with respect to the project paper. Virginia Tech&rsquo;s Undergraduate Office of Academic Integrity defines plagiarism in the following way: &ldquo;Plagiarism includes the copying of the language, structure, programming, computer code, ideas, and/or thoughts of another and passing off the same as one's own original work, or attempts thereof.&rdquo; Among several examples of plagiarism, one particularly relevant to this course involves &ldquo;Failing to cite resources (print or electronic) if they are utilized in any way as source material in an academic exercise.&rdquo; I will help students by providing guidance and resources concerning appropriate citation methods and tips to avoid plagiarism. Students are encouraged to ask me concerning issues of appropriate citation methods. The use of appropriate citation methods will be reflected in my graded evaluation of aspects of the Course Project, including proposals and (especially) the project paper.</p>
+
+    <h4>Policies Regarding Assistance and Collaboration, Including Artificial Intelligence</h4>
+    <p>The policies in this section apply to all course work, including the Course Project, homework assignments, and other submitted work. Students may use artificial intelligence tools, provided that such use remains consistent with the student's responsibility for the intellectual content and final presentation of the work and with any more specific instructions provided for an assignment. Appropriate uses of AI can include generating or debugging code, explaining statistical or financial concepts, suggesting approaches to an analysis, summarizing or interpreting a specific table or figure, identifying potential limitations, improving the clarity of student-written text, or providing feedback on a draft.</p>
+    <p>We will devote a class session to the ethical use of AI in research and scholarship. During this session, we will examine the opportunities, limitations, and ethical concerns associated with AI-assisted research and develop more detailed recommendations for its appropriate use. Following this session, students will be expected to adopt practices consistent with the principles and recommendations developed in class. The examples and boundaries described below provide general guidance but do not replace the more detailed expectations established during that session.</p>
+    <p>For example, a student may provide an AI tool with a figure and ask it to suggest a brief description or interpretation. The student may then evaluate, correct, and revise that discussion for inclusion in the project paper or another assignment. Similarly, a student may instruct an AI tool to critique a paragraph, suggest a clearer organization, or identify issues that deserve further consideration. These uses treat AI as a research and editorial assistant while leaving the student responsible for the underlying analysis and written argument.</p>
+    <p>Students may also use AI tools or AI agents to assist with locating and organizing research relevant to their project topic. For example, an AI agent might search for related academic papers and produce an intermediate research artifact, such as a table listing potentially relevant studies, citations, brief summaries, research methods, data sources, or principal findings. Such an artifact can provide a useful starting point for a literature review. However, the student must verify that the cited papers exist, consult the original sources, assess their relevance and quality, refine the set of references included in the project, and develop the synthesis and prose presented in the paper. AI-generated summaries cannot substitute for reading and evaluating the underlying research.</p>
+    <div class="callout warn">
+      <p><strong>Students may not delegate substantial authorship or intellectual responsibility to an AI system.</strong> It is not acceptable, for example, to ask an AI tool to &lsquo;write the introduction to my paper,&rsquo; convert a collection of research summaries into a finished literature-review section, generate an entire results section, develop the central argument of the paper, or produce substantial passages that are incorporated into submitted work with only limited editing. Reviewing or lightly revising AI-generated text does not make the student the author of that material. Submitted work should reflect the student's own understanding, reasoning, synthesis, and ability to communicate the research.</p>
+    </div>
+    <p>Students are responsible for carefully reviewing and verifying AI-assisted work. AI-generated material may contain factual errors, incorrect interpretations, flawed code, fabricated citations, or unsupported claims. &lsquo;AI produced it&rsquo; is not a defense for an error or misrepresentation. Students must independently verify citations, statistical results, code, and substantive claims before including them in submitted work. Students must also avoid providing confidential, proprietary, personally identifiable, or otherwise restricted data to an AI system. I recommend that students consider using Hokie AI whenever possible, in light of its provisions for protecting data.</p>
+    <p>Any nontrivial use of AI must be disclosed. For the Course Project, students must include an acknowledgment or AI-use statement with the final paper that identifies the tool used and briefly describes how it assisted the work, for example, with code development, literature discovery and organization, interpretation of particular figures, editorial feedback, or improvement of written clarity. For homework assignments and other submitted work, students should provide a brief note describing any material AI assistance, either within the submission or through the submission comments, e.g., &ldquo;I acknowledge the use of AI in developing the code contained in this submission&rdquo;. Routine use of spelling or grammar correction does not require disclosure. Disclosure of permissible AI assistance will not result in a grading penalty; transparency is an expected element of responsible research practice.</p>
+    <p>Students may also discuss assignments and project work with classmates or receive appropriate assistance from other individuals. Substantial assistance from another person should be discussed with me when appropriate and acknowledged in the submitted work. Students may not copy significant portions of another student's code, writing, or analysis and present that material as their own. When uncertain whether a proposed form of human or AI assistance is permissible, students should consult me before using it.</p>
+  </section>
+
+  <section id="additional-policies">
+    <h2>Additional Policies</h2>
+
+    <h3>Attendance</h3>
+    <p>As noted earlier, attendance is required for this course, and I will usually (but perhaps not always) take attendance. I will keep a record of attendance. This will contribute to a student&rsquo;s Class Participation score for the course, along with my subjective assessment of the quality of the student&rsquo;s contributions to the class.</p>
+
+    <h3>Penalties for Late Submissions and Requests for Extensions</h3>
+    <p>The general policy with respect to homework is that I will not accept late submissions and that late submissions will receive a score of zero. This is due in part to the policy of dropping the lowest homework score. I suggest that students get started on homework assignments well before the deadline. This allows ample time to seek help if needed. If there are personal circumstances that impact a student&rsquo;s ability to complete homework on time, then the student in question should contact me regarding this. Deadlines are an important aspect of the Course Project. I expect students to adhere to these deadlines in submitting proposals, replication code, preliminary and final paper versions, and so forth. Late submissions of Course Project components will generally be penalized at least 20%, and an additional 20% for each subsequent day that elapses. Thus, students should be very mindful of Project deadlines and, when possible, submit components early to avoid any possibility of late penalties. As with homework assignments, if personal circumstances impact a student&rsquo;s ability to complete Project work on time, then the student should discuss these with me prior to relevant due dates if possible.</p>
+
+    <h3>Regrading</h3>
+    <p>I aim to provide feedback on all graded submissions. If the feedback is not clear, I am happy to address questions. I am responsible for evaluating all course submissions, including project components, homework assignments, and exams. I do not typically &lsquo;regrade&rsquo; exams, assignments, papers, or other submissions. I will not revisit subjective grading decisions that are invariably a part of the grading process. I am willing to revisit a student&rsquo;s grade only if I have made a clear grading error. A student who believes that I have made such an error should contact me about the perceived error. In some cases, I may simply agree that an error has occurred and adjust the grade appropriately. In other cases, I may ask for a formal written (emailed) request to review a potential grading error. I am the final academic evaluator of the work and the grades assigned. Output from an AI system, including an alternative solution, an interpretation of an exam question, or an AI-based assessment of a response or submission is not an authoritative grading source and does not, by itself, demonstrate that a grading error occurred.</p>
+
+    <h3>Requests for Project Feedback and Preliminary Assessments</h3>
+    <p>I am generally willing to discuss high-level issues and questions associated with proposal or project paper drafts, as well as slides for presentations. However, given time limitations and out of fairness to other students, I am not willing to &ldquo;pre-grade&rdquo; or provide line-by-line comments on drafts outside of the specific milestones already built into the Course Project. With respect to these milestones, students should realize that they will submit a preliminary paper draft specifically so that I can provide detailed comments regarding paper structure, writing issues, etc. This allows students to address these comments prior to submitting a final paper.</p>
+  </section>
+
+  <section id="resources">
+    <h2>Resources for Students</h2>
+
+    <h3>Disability Resources</h3>
+    <p>Virginia Tech is committed to creating an inclusive learning environment where all students have equitable access to educational opportunities. If you anticipate or experience barriers in this course due to a disability, including chronic health, mental-health, learning, mobility, sensory, ADHD, or other disabilities, I encourage you to connect with Services for Students with Disabilities (SSD). SSD works collaboratively with students to determine reasonable accommodations that provide equal access while maintaining the essential learning outcomes and academic standards of the course. Students requiring exam accommodations should coordinate with me and schedule any required SSD reservation at least two weeks in advance, or earlier if required by SSD. Contact SSD at 540-231-3788, <a href="mailto:ssd@vt.edu">ssd@vt.edu</a>, or <a href="https://ssd.vt.edu/">ssd.vt.edu</a>.</p>
+
+    <h3>Writing Assistance</h3>
+    <p>For additional help with your writing, you may consult with the Virginia Tech Writing Center, which provides free services related to writing assistance. For detailed information, see <a href="https://lib.vt.edu/study-learn/writing-center.html">lib.vt.edu/study-learn/writing-center.html</a>. Note that seeking assistance from the Writing Center with respect to the Course Project paper is acceptable, but this assistance should be noted as an acknowledgement in the paper.</p>
+
+    <h3>Student Well-Being</h3>
+    <p>Supporting the mental health and well-being of students in my class is of high priority to me and Virginia Tech. If you are feeling overwhelmed academically, having trouble functioning, or are worried about a friend, please reach out to any of the following offices:</p>
+    <ul>
+      <li><strong>Cook Counseling:</strong> Schedule an appointment and/or 24/7 crisis support: 540-231-6557; for online information see <a href="https://ucc.vt.edu/">ucc.vt.edu</a></li>
+      <li><strong>TimelyCare</strong> is a free virtual health and well-being platform available to Virginia Tech students 24/7. Students may register at <a href="https://timelycare.com/virginiatech">timelycare.com/virginiatech</a>, download the TimelyCare app and log in with their vt.edu email address, or call 833-4-Timely for service or technical support.</li>
+      <li><strong>Dean of Students Office:</strong> General advice (540-231-3787), After-hours crisis (540-231-6411); for online information see <a href="https://dos.vt.edu/">dos.vt.edu</a></li>
+      <li><strong>Hokie Wellness:</strong> See <a href="https://hokiewellness.vt.edu/">hokiewellness.vt.edu</a> for information about health and wellness workshops and consultations</li>
+    </ul>
+    <div class="callout warn">
+      <p><strong>Emergency support:</strong> If you are concerned that you or someone else needs emergency mental-health care, call or text 988 or go to the nearest emergency room.</p>
+    </div>
+
+    <h3>Computing Services Support</h3>
+    <p>If you have any technology or computer issues, please fill in a ticket at <a href="https://4help.vt.edu/">4help.vt.edu</a>. The Pamplin IT department is generally prompt and more knowledgeable than a faculty member about these issues.</p>
+  </section>
+
+  <section id="disclaimer">
+    <h2>Disclaimer Concerning Modifications or Revisions</h2>
+    <p>The instructor reserves the right to make modifications to this syllabus as needed. Students will be notified whenever modifications are made to the syllabus.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section id="schedule">
+    <h2>Schedule of Topics, Assignments, and Deadlines</h2>
+    <p>The following table provides a schedule for the course. Assigned readings, notebooks, slides, and other materials associated with each topic will be posted on Canvas. Please note that this schedule is tentative. I reserve the right to modify it in the future if necessary. Final presentations will occur during the scheduled class meetings and may also include one or two special sessions at times TBA; advance notice will be provided.</p>
+
+    <div class="legend">
+      <span><span class="cat-label cat-core">Core</span>Topic-oriented instruction</span>
+      <span><span class="cat-label cat-project">Project</span>Course project work session</span>
+      <span><span class="cat-label cat-presentation">Presentation</span>Student presentations</span>
+      <span><span class="cat-label cat-assessment">Assessment</span>Exam</span>
+      <span><span class="cat-label cat-break">Break</span>No class</span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="schedule-table">
+        <tr><th>Date</th><th>Class Focus</th><th>Major Assignments / Deadlines</th></tr>
+
+        <tr>
+          <td class="date-cell">Tue Aug 25<br>Week 1</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Course introduction and capstone roadmap<span class="focus-desc">Research questions, evidence, reproducibility, and course workflow</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Aug 27</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Properties of financial returns<span class="focus-desc">Prices and returns; means, volatility, skewness, and kurtosis</span></td>
+          <td class="deadline-cell">HW 1 assigned</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Sep 1<br>Week 2</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Simple linear regression and the CAPM<span class="focus-desc">Regression intuition, beta estimation, and asset-pricing applications</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Sep 3</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 1: From an idea to a feasible research question<span class="focus-desc">Project overview, data sources, scope, and deliverables</span></td>
+          <td class="deadline-cell">HW 1 due; HW 2 assigned</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Sep 8<br>Week 3</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Matrix algebra and efficient portfolios I<span class="focus-desc">Vectors, matrices, covariance structure, and portfolio notation</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Sep 10</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 2: Ethical use of AI in research and scholarship<span class="focus-desc">Transparency, attribution, verification, bias, privacy, reproducibility, and researcher accountability</span></td>
+          <td class="deadline-cell">HW 2 due</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Sep 15<br>Week 4</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Matrix algebra and efficient portfolios II<span class="focus-desc">Mean-variance optimization, the efficient frontier, and implementation</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Sep 17</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 3: Obtaining financial data<span class="focus-desc">WRDS, CRSP, Compustat, and Python-based data access</span></td>
+          <td class="deadline-cell">HW 3 assigned</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Sep 22<br>Week 5</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Multivariate linear regression and multifactor models<span class="focus-desc">Multiple regression, factor exposures, and model evaluation</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Thu Sep 24</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Preliminary topic presentations &ndash; Session 1<span class="focus-desc">Short, low-stakes presentations of current project ideas</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Tue Sep 29<br>Week 6</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Preliminary topic presentations &ndash; Session 2<span class="focus-desc">Peer and instructor feedback on project direction</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Oct 1</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 4: Proposal clinic<span class="focus-desc">Refining questions, hypotheses, research design, and feasibility</span></td>
+          <td class="deadline-cell">HW 3 due; HW 4 assigned<br><strong>Preliminary proposal due Sun Oct 4</strong></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Oct 6<br>Week 7</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Introduction to time-series analysis<span class="focus-desc">Serial correlation and autoregressive models</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Oct 8</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Present-value relations and predictive regressions<span class="focus-desc">Market efficiency, forecasting, and inference</span></td>
+          <td class="deadline-cell">HW 4 due; HW 5 assigned<br><strong>Final proposal due Sun Oct 11</strong></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Oct 13<br>Week 8</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Panel regressions with financial applications<span class="focus-desc">Pooled models, fixed effects, clustered standard errors, and interpretation</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Oct 15</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 5: Data and exploratory analysis<span class="focus-desc">Bring project data; hands-on work and instructor consultation</span></td>
+          <td class="deadline-cell">HW 5 due; HW 6 assigned</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Oct 20<br>Week 9</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Measuring, modeling, and forecasting volatility<span class="focus-desc">GARCH models and realized volatility</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Oct 22</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>PCA, clustering, and statistical factor models<span class="focus-desc">Arbitrage pricing theory and dimension reduction</span></td>
+          <td class="deadline-cell">HW 6 due; HW 7 assigned</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Oct 27<br>Week 10</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Finance and machine learning I<span class="focus-desc">Prediction, regularization, lasso, and elastic net</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Oct 29</td>
+          <td class="focus-cell"><span class="cat-label cat-core">Core</span>Finance and machine learning II<span class="focus-desc">Tree-based models, model validation, and interpretation</span></td>
+          <td class="deadline-cell">HW 7 due</td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Nov 3<br>Week 11</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 6: Results and presentation clinic<span class="focus-desc">Work session focused on analysis, diagnostics, and communicating results</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Thu Nov 5</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Intermediate project presentations &ndash; Session 1<span class="focus-desc">In-progress results, limitations, and planned next steps</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Tue Nov 10<br>Week 12</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Intermediate project presentations &ndash; Session 2<span class="focus-desc">In-progress results, limitations, and planned next steps</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Thu Nov 12</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Intermediate project presentations &ndash; Session 3<span class="focus-desc">Reserved as needed based on enrollment and project format</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-assessment">
+          <td class="date-cell">Tue Nov 17<br>Week 13</td>
+          <td class="focus-cell"><span class="cat-label cat-assessment">Assessment</span>In-class exam</td>
+          <td class="deadline-cell"><strong>Exam</strong></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Thu Nov 19</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 7: Paper development and final analysis<span class="focus-desc">Structure, tables and figures, robustness, and individual consultation</span></td>
+          <td class="deadline-cell"><strong>Preliminary paper due Sun Nov 22</strong></td>
+        </tr>
+        <tr class="row-break">
+          <td class="date-cell">Tue Nov 24 &amp;<br>Thu Nov 26</td>
+          <td class="focus-cell"><span class="cat-label cat-break">Break</span>Thanksgiving break &ndash; no class</td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr>
+          <td class="date-cell">Tue Dec 1<br>Week 14</td>
+          <td class="focus-cell"><span class="cat-label cat-project">Project</span>Project workshop 8: Final presentation rehearsal and paper revision<span class="focus-desc">Incorporating preliminary-paper feedback and final quality checks</span></td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Thu Dec 3</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Final project presentations &ndash; Session 1*</td>
+          <td class="deadline-cell"></td>
+        </tr>
+        <tr class="row-presentation">
+          <td class="date-cell">Tue Dec 8<br>Week 15</td>
+          <td class="focus-cell"><span class="cat-label cat-presentation">Presentation</span>Final project presentations &ndash; Session 2*</td>
+          <td class="deadline-cell"><strong>Final paper and private replication repository due Sun Dec 13 through Canvas</strong></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <footer>
+    <p>Field Projects (FinTech Capstone Course) &middot; FIN 4414, Section 85819 &middot; Fall 2026 &middot; Virginia Tech</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
