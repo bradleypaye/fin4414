@@ -12,6 +12,10 @@ data/*
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*
 
+# Graded, in-class assessment materials: never belong in this public repo
+# (see README "Repo structure" note) — these live on Canvas instead.
+assessments/
+
 # Python
 __pycache__/
 *.pyc
