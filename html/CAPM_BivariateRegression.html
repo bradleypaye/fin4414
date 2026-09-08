@@ -8449,7 +8449,7 @@ $E(R_{i} - R_{f}) = \alpha_{i} + \beta_{i} E(R_{m} - R_{f}) $.</p>
 <p>But how, precisely, should we do this?</p>
 <p>The most common approach called <em>ordinary least squares (OLS)</em> chooses the parameters $\alpha$ and $\beta$ to minimize the sum of squared errors (hence "least squares") over sample observations.</p>
 <p>Mathematically, we solve the problem:</p>
-<p>$\min_{\hat{\alpha},\hat{\beta}} \sum_{t=1}^{T} \hat{\epsilon}_{t}^{2} = \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t})^{2}$</p>
+<p>$\min_{\hat{\alpha},\hat{\beta}} \sum_{t=1}^{T} \hat{\epsilon}_{t}^{2} = \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t})^{2}$</p>
 <p>This problem is relatively easy to solve (the solution is given later). The Python code below illustrates the best fit line or the <em>estimated regression line</em> to the data for first of the 25 sorted portfolios (SMALL LoBM). Here the estimates of $\alpha$ and $\beta$ are produced by NumPy's "polyfit" function (fit a polynomial) specifying a first-order polynomial (linear). But there are other Python methods for doing OLS that offer additional, useful output.</p>
 <p>Quick insigts:</p>
 <ol>
@@ -9409,10 +9409,10 @@ p-value:  2.1152846141347936e-10
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Derivation-of-OLS-estimators">Derivation of OLS estimators<a class="anchor-link" href="#Derivation-of-OLS-estimators">¶</a></h3><p>$\min_{\hat{\alpha},\hat{\beta}} =  \sum_{t=1}^{T} \hat{\epsilon}_{t}^{2} = \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t})^{2}$</p>
+<h3 id="Derivation-of-OLS-estimators">Derivation of OLS estimators<a class="anchor-link" href="#Derivation-of-OLS-estimators">¶</a></h3><p>$\min_{\hat{\alpha},\hat{\beta}} =  \sum_{t=1}^{T} \hat{\epsilon}_{t}^{2} = \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t})^{2}$</p>
 <p>To solve this minimization problem, we will do the usual thing: take the derivatives (w/ respect to $\alpha$ and $\beta$) and set them to zero.</p>
-<p>$\frac{\partial}{\partial \alpha}  \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t})^{2} = -2 \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t}) = 0 $</p>
-<p>$\frac{\partial}{\partial \beta}  \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t})^{2} = -2 \sum_{t=1}^{T} (y_{t} - \hat{\alpha} + \hat{\beta} x_{t}) x_{t} = 0$</p>
+<p>$\frac{\partial}{\partial \alpha}  \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t})^{2} = -2 \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t}) = 0 $</p>
+<p>$\frac{\partial}{\partial \beta}  \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t})^{2} = -2 \sum_{t=1}^{T} (y_{t} - \hat{\alpha} - \hat{\beta} x_{t}) x_{t} = 0$</p>
 <p>Divide equal of these equations by $-2$ and then sum across observations and then divide by $T$ to get:</p>
 <p>$\bar{y} - \hat{\alpha} - \hat{\beta} \bar{x} = 0 $</p>
 <p>$(1/T)\sum y_{t} x_{t} - \hat{\alpha}\bar{x} - \hat{\beta} (1/T)\sum x_{t}^{2} = 0$</p>
