@@ -99,7 +99,33 @@ See `.gitignore` for how this is enforced in practice.
   January 1964 through December 2025. Source: Kenneth French's Data
   Library ("F-F Research Data Factors"), copyright Eugene F. Fama and
   Kenneth R. French. Same archival-snapshot relationship to
-  `notebooks/CAPM_BivariateRegression.ipynb` as above.
+  `notebooks/CAPM_BivariateRegression.ipynb` as above; also used by
+  `notebooks/MultifactorModels_MultiVarRegression.ipynb`, which pulls
+  this same dataset live rather than reading this file.
+- `ff_10_industry_portfolios_monthly.csv` — monthly value-weighted returns
+  (in percent) for the 10 Fama-French industry portfolios, January 1965
+  through December 2025. Source: Kenneth French's Data Library ("10
+  Industry Portfolios"), copyright Eugene F. Fama and Kenneth R. French.
+  An archival snapshot; `notebooks/MultifactorModels_MultiVarRegression.ipynb`
+  pulls this same data live via `pandas_datareader` rather than reading
+  this file.
+- `ff_investment_sorted_portfolios_monthly.csv` — monthly value-weighted
+  returns (in percent) for portfolios sorted on investment/asset growth,
+  January 1965 through December 2025. Source: Kenneth French's Data
+  Library ("Portfolios Formed on Investment"), copyright Eugene F. Fama
+  and Kenneth R. French. Same archival-snapshot relationship to
+  `notebooks/MultifactorModels_MultiVarRegression.ipynb` as above.
+- `ff_momentum_factor_monthly.csv` — the monthly momentum ("up minus
+  down") factor return, in percent, January 1965 through December 2025.
+  Source: Kenneth French's Data Library ("F-F Momentum Factor"), copyright
+  Eugene F. Fama and Kenneth R. French. Same archival-snapshot relationship
+  to `notebooks/MultifactorModels_MultiVarRegression.ipynb` as above.
+
+  Note: each time it runs, `MultifactorModels_MultiVarRegression.ipynb`
+  also writes a fresh, timestamped backup of everything it pulls to
+  `data/ff_data_backup/` (untracked, per the blanket `data/*` rule above)
+  — that's a separate, per-run reproducibility aid, distinct from the
+  single committed reference snapshots listed here.
 
 ## License
 
