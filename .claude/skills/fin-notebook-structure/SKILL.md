@@ -140,3 +140,10 @@ concretely checkable rules for these notebooks:
   portfolios", "on the order of several percentage points") over hardcoding many precise
   values that will drift out of sync with re-run output; where precise values are worth
   citing, re-derive/copy them from the actual latest output rather than typing from memory.
+- Before finalizing (or on any "final look before I post" request), do a dedicated
+  proofreading pass over every markdown cell — a full re-read for typos/grammar, not just
+  a skim while making other edits. This includes LaTeX: check subscripts/exponents/Greek
+  letters carefully, since a slip like `\sigma{2}` (missing `_`) or `\sigma^{1}` (wrong
+  exponent) still visually reads as "math" and is easy to wave past. Grepping the raw
+  `.ipynb` for suspicious substrings (doubled words, common misspellings) is a useful
+  supplement but not a substitute for reading the rendered prose.
