@@ -11,6 +11,7 @@ data/*
 !data/ff_10_industry_portfolios_monthly.csv
 !data/ff_investment_sorted_portfolios_monthly.csv
 !data/ff_momentum_factor_monthly.csv
+!data/fred_macro.csv
 
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*
