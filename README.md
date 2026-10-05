@@ -93,6 +93,14 @@ See `.gitignore` for how this is enforced in practice.
   Source: the "Annual" sheet of Amit Goyal's `GWPredictorData2024.xlsx`
   (same source as above), with Goyal's column names except `yyyy` renamed
   `year`. Used by `notebooks/PredictiveRegressions.ipynb`.
+- `fred_macro.csv` — monthly snapshot of five FRED series, January 1947
+  through June 2026, pulled September 28, 2026: real GDP (`GDPC1`, quarterly,
+  so blank in non-quarter-start months), CPI (`CPIAUCSL`), Moody's BAA and
+  AAA corporate bond yields (`BAA`, `AAA`), and the NBER recession indicator
+  (`USREC`). Source: FRED (Federal Reserve Bank of St. Louis), public domain.
+  Frozen so the results match the text even as FRED revises past values.
+  Used by `notebooks/TimeSeries.ipynb`, which also includes commented-out
+  code to pull the latest data live instead.
 - `ff_25_portfolios_5x5_monthly.csv` — monthly value-weighted returns (in
   percent) for the 25 Fama-French size- and book-market-sorted portfolios,
   January 1964 through December 2025. Source: Kenneth French's Data
