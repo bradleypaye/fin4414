@@ -16,9 +16,15 @@ data/*
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*
 
-# Graded, in-class assessment materials: never belong in this public repo
-# (see README "Repo structure" note) — these live on Canvas instead.
+# Graded course materials (homeworks, assessments, and their solutions) never
+# belong in this public repo (see README) — they live on Canvas instead. Matched
+# by name anywhere in the repo, in any format (.ipynb, .docx, .pdf, ...).
 assessments/
+Assessment*
+Homework*
+HW[0-9]*
+*_Solution*
+*_Solutions*
 
 # Python
 __pycache__/

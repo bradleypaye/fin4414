@@ -18,9 +18,9 @@ the course's Canvas site, per university policy. This repo exists to:
 - Host example notebooks and scripts referenced during the topic-oriented portion
   of the course.
 
-Graded, in-class assessment materials are **not** included here, even though they're
-part of the topic-oriented portion of the course — those stay in Canvas rather than
-a public repo.
+Graded materials — homeworks, in-class assessments, and their solutions — are **not**
+included here, even though they're part of the topic-oriented portion of the course.
+Those stay in Canvas rather than a public repo, and `.gitignore` excludes them by name.
 
 Student thesis repos should be **private**, created by the student following the
 naming convention and setup instructions posted on Canvas, with the instructor and
