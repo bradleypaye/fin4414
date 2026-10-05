@@ -87,6 +87,12 @@ See `.gitignore` for how this is enforced in practice.
   Welch (2008, *Review of Financial Studies*), "A Comprehensive Look at the
   Empirical Performance of Equity Premium Prediction." Used by
   `notebooks/Equity_Premium_Inference.ipynb`.
+- `gw_annual.csv` — annual S&P 500 prices, dividends, and earnings, plus the
+  Goyal-Welch predictor inputs (interest rates, bond yields and returns,
+  inflation, book-to-market, net issuance, stock variance), 1926 through 2024.
+  Source: the "Annual" sheet of Amit Goyal's `GWPredictorData2024.xlsx`
+  (same source as above), with Goyal's column names except `yyyy` renamed
+  `year`. Used by `notebooks/PredictiveRegressions.ipynb`.
 - `ff_25_portfolios_5x5_monthly.csv` — monthly value-weighted returns (in
   percent) for the 25 Fama-French size- and book-market-sorted portfolios,
   January 1964 through December 2025. Source: Kenneth French's Data
