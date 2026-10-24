@@ -100,7 +100,13 @@ See `.gitignore` for how this is enforced in practice.
   (`USREC`). Source: FRED (Federal Reserve Bank of St. Louis), public domain.
   Frozen so the results match the text even as FRED revises past values.
   Used by `notebooks/TimeSeries.ipynb`, which also includes commented-out
-  code to pull the latest data live instead.
+  code to pull the latest data live instead. `notebooks/PCA.ipynb` uses
+  its `USREC` column to shade recessions.
+- `fred_md_transformed_monthly.csv` — 118 monthly U.S. macroeconomic
+  series from FRED-MD (McCracken and Ng, 2016), March 1992 through December
+  2019, each already transformed to stationarity using McCracken and Ng's
+  recommended transformation codes. Source: FRED-MD (Federal Reserve Bank
+  of St. Louis). Used by `notebooks/PCA.ipynb`.
 - `ff_25_portfolios_5x5_monthly.csv` — monthly value-weighted returns (in
   percent) for the 25 Fama-French size- and book-market-sorted portfolios,
   January 1964 through December 2025. Source: Kenneth French's Data
@@ -115,14 +121,15 @@ See `.gitignore` for how this is enforced in practice.
   Kenneth R. French. Same archival-snapshot relationship to
   `notebooks/CAPM_BivariateRegression.ipynb` as above; also used by
   `notebooks/MultifactorModels_MultiVarRegression.ipynb`, which pulls
-  this same dataset live rather than reading this file.
+  this same dataset live rather than reading this file, and read directly
+  by `notebooks/PCA.ipynb`.
 - `ff_10_industry_portfolios_monthly.csv` — monthly value-weighted returns
   (in percent) for the 10 Fama-French industry portfolios, January 1965
   through December 2025. Source: Kenneth French's Data Library ("10
   Industry Portfolios"), copyright Eugene F. Fama and Kenneth R. French.
   An archival snapshot; `notebooks/MultifactorModels_MultiVarRegression.ipynb`
   pulls this same data live via `pandas_datareader` rather than reading
-  this file.
+  this file. Read directly by `notebooks/PCA.ipynb`.
 - `ff_investment_sorted_portfolios_monthly.csv` — monthly value-weighted
   returns (in percent) for portfolios sorted on investment/asset growth,
   January 1965 through December 2025. Source: Kenneth French's Data

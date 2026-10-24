@@ -13,7 +13,7 @@ data/*
 !data/ff_momentum_factor_monthly.csv
 !data/fred_macro.csv
 !data/gw_annual.csv
-
+!data/fred_md_transformed_monthly.csv
 # Never track anything that looks like a WRDS pull, even if placed elsewhere.
 *wrds*
 
