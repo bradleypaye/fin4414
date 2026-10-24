@@ -27,6 +27,9 @@ HW[0-9]*
 *_Solution*
 *_Solutions*
 
+# Copyrighted papers kept locally for reference
+Zhou_VRP_AnnualReview.pdf
+
 # Python
 __pycache__/
 *.pyc
