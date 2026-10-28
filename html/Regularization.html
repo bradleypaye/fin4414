@@ -7796,20 +7796,20 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=265e7b8c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09b7b982">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Machine-Learning-Part-1:-Regularization-and-Variable-Selection-in-Linear-Models">Machine Learning Part 1: Regularization and Variable Selection in Linear Models<a class="anchor-link" href="#Machine-Learning-Part-1:-Regularization-and-Variable-Selection-in-Linear-Models">¶</a></h1><p><code>PredictiveRegressions.ipynb</code> ended on a sobering note: a "kitchen sink" predictive regression with nine Goyal-Welch predictors fit the data well in-sample but forecast far <em>worse</em> than the simple historical average out of sample. The culprit was <strong>overfitting</strong> -- with many predictors and not much data, OLS fits the noise in the estimation sample along with any signal, and its forecasts swing wildly as a result. This notebook is about methods designed for exactly that situation: <strong>regularization</strong> (or <strong>shrinkage</strong>) methods, which estimate a large regression but deliberately pull the coefficients toward zero. We focus on the two most widely used ones, <strong>ridge regression</strong> and the <strong>lasso</strong>, and on <strong>cross-validation</strong>, the standard data-driven way to decide how hard to pull.</p>
-<p>The notebook builds on OLS regression from <code>CAPM_BivariateRegression.ipynb</code> and <code>MultifactorModels_MultiVarRegression.ipynb</code> and on the out-of-sample (OOS) forecast evaluation in <code>PredictiveRegressions.ipynb</code>. <code>PCA.ipynb</code> introduced the machine learning vocabulary used here (features, supervised versus unsupervised learning) and covers another main approach to many predictors, dimension reduction, which we mention only briefly. We first build intuition with simulated data, where we know the true model and can check what each method gets right and wrong, and then return to the Goyal-Welch kitchen sink to see whether regularization rescues it. The optional appendix uses the matrix notation from <code>BasicsLinearAlgebra.ipynb</code>.</p>
+<p>The notebook builds on OLS regression from <code>CAPM_BivariateRegression.ipynb</code> and <code>MultifactorModels_MultiVarRegression.ipynb</code> and on the out-of-sample (OOS) forecast evaluation in <code>PredictiveRegressions.ipynb</code>. <code>PCA.ipynb</code> introduced the machine learning vocabulary used here (features, supervised versus unsupervised learning) and covers another main approach to many predictors, dimension reduction, which we mention only briefly. We first build intuition with simulated data, where we know the true model and can check what each method gets right and wrong, and then return to the Goyal-Welch kitchen sink to see whether regularization rescues it. The optional appendix works through the one-predictor algebra behind ridge and the lasso, and then uses the matrix notation from <code>BasicsLinearAlgebra.ipynb</code>.</p>
 <p><em>Acknowledgment</em>: This notebook was produced with the assistance of AI. I remain responsible for the content and any errors.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a27e0a72">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aba9eab2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7820,18 +7820,18 @@ a.anchor-link {
 <li>Explain why OLS overfits when the number of predictors is large relative to the number of observations (and breaks down entirely when it exceeds it), and describe the three main families of remedies: subset selection, regularization, and dimension reduction.</li>
 <li>Explain the purpose of splitting data into training and test samples, and compute the test mean squared error (MSE) of a fitted model.</li>
 <li>Define the ridge and lasso estimators as penalized least squares, explain how the penalty parameter $\lambda$ controls the amount of shrinkage, and explain why predictors should be standardized before penalizing them.</li>
-<li>Derive the ridge and lasso estimates in a regression with a single predictor, use the result to explain why the lasso sets some coefficients exactly to zero while ridge does not, and verify the formulas numerically.</li>
+<li>Explain why the lasso sets some coefficients exactly to zero while ridge does not, contrasting ridge's proportional shrinkage with the lasso's soft thresholding.</li>
 <li>Estimate ridge and lasso regressions with <code>scikit-learn</code> and interpret their coefficient paths.</li>
 <li>Explain $K$-fold cross-validation, use it to choose the penalty parameter, and explain why it must use only the training data (and why time series data need extra care).</li>
 <li>Use a Monte Carlo simulation to compare the test MSE of OLS, ridge, and the lasso, and to measure how well the lasso picks out the truly relevant predictors.</li>
 <li>Apply ridge and the lasso to out-of-sample forecasting of the equity premium, and interpret their performance relative to OLS and the historical average.</li>
-<li>(Optional, appendix) Write OLS and ridge regression in matrix notation, derive the ridge estimator, and explain why ridge remains well defined when OLS does not.</li>
+<li>(Optional, appendix) Derive the ridge and lasso estimates in a regression with a single predictor and verify them numerically; write OLS and ridge regression in matrix notation, derive the ridge estimator, and explain why ridge remains well defined when OLS does not.</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e6613dfc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d3339a8c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7846,7 +7846,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=89aeb4ec">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dadae7f4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7857,7 +7857,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b993dfc0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=435e902f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7942,7 +7942,7 @@ Out-of-sample R-squared, kitchen sink OLS vs. historical average: -64.3%
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8d8f1613">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1a0660a1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7979,7 +7979,7 @@ Out-of-sample R-squared, kitchen sink OLS vs. historical average: -64.3%
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ea6c499c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c587dd56">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7991,7 +7991,7 @@ Out-of-sample R-squared, kitchen sink OLS vs. historical average: -64.3%
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e32875d3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a4fe1a3c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8018,7 +8018,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7d81b27a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d514c9b2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8032,7 +8032,7 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9e6e50db">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bdd64df4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8168,7 +8168,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85d18ade">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5f74f62a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8183,7 +8183,7 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bd72da05">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b2940c9b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8225,7 +8225,7 @@ Test MSE, using the TRUE coefficients:                41.5  (population value: s
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e16b2dbe">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5ba6267c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8236,7 +8236,7 @@ Test MSE, using the TRUE coefficients:                41.5  (population value: s
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0e0e0e73">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9511e1b9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8276,7 +8276,7 @@ Test MSE:      101.4
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c0d6603c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=da9f8f02">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8287,7 +8287,7 @@ Test MSE:      101.4
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7c8ce23c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=28833a1c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8319,35 +8319,17 @@ $$</p>
 <li>The lasso measures coefficient size by the sum of absolute values, known as the $\ell_{1}$ norm (or "Manhattan distance," the distance you travel between two points on a city grid). The lasso is $\ell_{1}$ regularization.</li>
 </ol>
 <p>That might sound like a technicality, but it has an important consequence. Like ridge, the lasso shrinks coefficients toward zero, more so for larger $\lambda$. But the $\ell_{1}$ penalty also <em>forces some coefficients to be exactly zero</em> when $\lambda$ is large enough. So the lasso performs variable selection: it produces <strong>sparse</strong> models, which involve only a subset of the predictors. Sparse models are also much easier to interpret than ridge models that give every predictor a nonzero weight.</p>
-<h3 id="Why-the-lasso-produces-exact-zeros:-one-predictor">Why the lasso produces exact zeros: one predictor<a class="anchor-link" href="#Why-the-lasso-produces-exact-zeros:-one-predictor">¶</a></h3><p>The cleanest way to see the difference between ridge and the lasso is to work out both estimators with a single predictor. To keep the algebra simple, suppose $X_i$ and $Y_i$ have both been de-meaned, so that we can drop the intercept. The OLS slope is then</p>
-<p>$$
-\hat{\beta}^{OLS} = \frac{\sum_i X_i Y_i}{\sum_i X_i^2}.
-$$</p>
-<p>Write $S_{xx} = \sum_i X_i^2$ and $S_{xy} = \sum_i X_i Y_i$, so $\hat{\beta}^{OLS} = S_{xy} / S_{xx}$. Expanding the square, the RSS is</p>
-<p>$$
-\text{RSS}(\beta) = \sum_i (Y_i - \beta X_i)^2 = \sum_i Y_i^2 - 2\beta S_{xy} + \beta^2 S_{xx},
-$$</p>
-<p>a parabola in $\beta$ whose slope (derivative) is $-2S_{xy} + 2\beta S_{xx}$.</p>
-<p><strong>Ridge.</strong> The ridge criterion is $\text{RSS}(\beta) + \lambda\beta^2$. Setting its derivative to zero,</p>
-<p>$$
--2S_{xy} + 2\beta S_{xx} + 2\lambda\beta = 0 \quad\Longrightarrow\quad \hat{\beta}^{R} = \frac{S_{xy}}{S_{xx} + \lambda} = \hat{\beta}^{OLS} \times \frac{S_{xx}}{S_{xx} + \lambda}.
-$$</p>
-<p>Ridge multiplies the OLS estimate by a shrinkage factor between zero and one. The factor is one when $\lambda = 0$ and falls toward zero as $\lambda$ grows, but it never reaches zero for any finite $\lambda$. Ridge shrinks <em>proportionally</em>: a big OLS coefficient and a small one are shrunk by the same percentage, and neither becomes exactly zero.</p>
-<p><strong>Lasso.</strong> The lasso criterion is $\text{RSS}(\beta) + \lambda|\beta|$. The absolute value has a kink at zero, so we consider the cases $\beta &gt; 0$ and $\beta &lt; 0$ separately. For $\beta &gt; 0$, $|\beta| = \beta$, and setting the derivative to zero gives</p>
-<p>$$
--2S_{xy} + 2\beta S_{xx} + \lambda = 0 \quad\Longrightarrow\quad \beta = \hat{\beta}^{OLS} - \frac{\lambda}{2S_{xx}},
-$$</p>
-<p>which is a valid solution only if it is actually positive, i.e., if $\hat{\beta}^{OLS} &gt; \lambda / (2S_{xx})$. Symmetrically, for $\beta &lt; 0$, $|\beta| = -\beta$, and we get $\beta = \hat{\beta}^{OLS} + \lambda/(2S_{xx})$, valid only if $\hat{\beta}^{OLS} &lt; -\lambda/(2S_{xx})$. What if $\hat{\beta}^{OLS}$ is between these two thresholds? Then neither case has a solution, and the minimum is at the kink, $\beta = 0$. The reason: starting from $\beta = 0$, a small move of size $\delta$ in either direction lowers the RSS at a rate of at most $2|S_{xy}|$ per unit of $\delta$ (the slope of the RSS parabola at zero), but raises the penalty at the rate $\lambda$. If $2|S_{xy}| &lt; \lambda$ -- equivalently, $|\hat{\beta}^{OLS}| &lt; \lambda/(2S_{xx})$ -- moving away from zero costs more than it gains. Putting the three cases together, with $c = \lambda / (2 S_{xx})$:</p>
-<p>$$
-\hat{\beta}^{L} = \begin{cases} \hat{\beta}^{OLS} - c &amp; \text{if } \hat{\beta}^{OLS} &gt; c \\ 0 &amp; \text{if } |\hat{\beta}^{OLS}| \le c \\ \hat{\beta}^{OLS} + c &amp; \text{if } \hat{\beta}^{OLS} &lt; -c. \end{cases}
-$$</p>
-<p>This is called <strong>soft thresholding</strong>. The lasso subtracts a fixed amount $c$ from the size of the OLS coefficient, and if the OLS coefficient is smaller than $c$ to begin with, it is set to exactly zero. Small, probably-noise coefficients are eliminated, while large coefficients survive (shrunk by $c$).</p>
+<h3 id="Why-the-lasso-produces-exact-zeros">Why the lasso produces exact zeros<a class="anchor-link" href="#Why-the-lasso-produces-exact-zeros">¶</a></h3><p>The cleanest way to see the difference between ridge and the lasso is a regression with a single predictor, where both estimators can be worked out by hand. The appendix does the algebra; here are the results.</p>
+<ul>
+<li><strong>Ridge shrinks proportionally.</strong> It multiplies the OLS estimate by a shrinkage factor between zero and one. The factor is one when $\lambda = 0$ and falls toward zero as $\lambda$ grows, but it never reaches zero for any finite $\lambda$. A big OLS coefficient and a small one are shrunk by the same percentage, and neither becomes exactly zero.</li>
+<li><strong>The lasso soft-thresholds.</strong> It subtracts a fixed amount, which grows with $\lambda$, from the size of the OLS estimate -- and if the OLS estimate is smaller than that amount to begin with, it sets the coefficient to exactly zero. This is called <strong>soft thresholding</strong>. Small, probably-noise coefficients are eliminated, while large coefficients survive, shrunk toward zero.</li>
+</ul>
 <p>The intuition for the difference lies in the shape of the penalties near zero. The ridge penalty $\lambda\beta^2$ is flat at zero: its marginal cost, $2\lambda\beta$, vanishes as $\beta$ approaches zero, so it always pays to keep a little bit of any predictor that helps the fit at all. The lasso penalty $\lambda|\beta|$ has a marginal cost of $\lambda$ no matter how close to zero $\beta$ is, so a predictor has to improve the fit by at least that much to earn a nonzero coefficient.</p>
-<p>With many predictors that are correlated with one another, the formulas are more complicated and there is no closed form for the lasso, but the same logic applies to each coefficient. The plot below shows the two rules side by side.</p>
+<p>With many predictors that are correlated with one another, the estimates are more complicated and there is no closed form for the lasso, but the same logic applies to each coefficient. The plot below shows the two rules side by side.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8c516667">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=44c52b5c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8391,80 +8373,29 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0800f27a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5e84534f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's verify these formulas numerically, using <code>scikit-learn</code>'s <code>Ridge</code> and <code>Lasso</code> estimators on a small simulated dataset with one predictor (with <code>fit_intercept=False</code>, since we de-mean the data ourselves).</p>
-<p>One practical detail: <code>scikit-learn</code> calls the penalty parameter <code>alpha</code> rather than $\lambda$, and it scales the two criteria differently. <code>Ridge(alpha=a)</code> minimizes $\text{RSS} + a\sum_j\beta_j^2$, so its <code>alpha</code> is our $\lambda$. But <code>Lasso(alpha=a)</code> minimizes $\frac{1}{2N}\text{RSS} + a\sum_j|\beta_j|$. Multiplying that criterion by $2N$ (which doesn't change where its minimum is) gives $\text{RSS} + 2Na\sum_j|\beta_j|$, so the lasso's <code>alpha</code> corresponds to $\lambda = 2N \times$ <code>alpha</code>. In the rest of the notebook we work directly with <code>scikit-learn</code>'s <code>alpha</code>, but keep in mind that the numbers are not comparable between ridge and the lasso.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4537be94">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">rng1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">n1</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="n">rng1</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
-<span class="n">y1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">rng1</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
-<span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                  <span class="c1">#de-mean, so no intercept is needed</span>
-<span class="n">S_xx</span><span class="p">,</span> <span class="n">S_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x1</span> <span class="o">*</span> <span class="n">y1</span><span class="p">)</span>
-<span class="n">b_hat_ols</span> <span class="o">=</span> <span class="n">S_xy</span> <span class="o">/</span> <span class="n">S_xx</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"OLS slope: </span><span class="si">{</span><span class="n">b_hat_ols</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'lambda'</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'ridge: formula'</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'sklearn'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'lasso: formula'</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'sklearn'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">]:</span>
-    <span class="n">ridge_formula</span> <span class="o">=</span> <span class="n">S_xy</span> <span class="o">/</span> <span class="p">(</span><span class="n">S_xx</span> <span class="o">+</span> <span class="n">lam</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S_xx</span><span class="p">)</span>
-    <span class="n">lasso_formula</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">b_hat_ols</span><span class="p">)</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">b_hat_ols</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">ridge_sk</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lam</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y1</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">lasso_sk</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lam</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n1</span><span class="p">),</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y1</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">lam</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">ridge_formula</span><span class="si">:</span><span class="s2">&gt;14.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ridge_sk</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">lasso_formula</span><span class="si">:</span><span class="s2">&gt;14.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">lasso_sk</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<p><strong>A note on <code>scikit-learn</code>'s penalty parameter.</strong> <code>scikit-learn</code> calls the penalty parameter <code>alpha</code> rather than $\lambda$, and it scales the two criteria differently. <code>Ridge(alpha=a)</code> minimizes $\text{RSS} + a\sum_j\beta_j^2$, so its <code>alpha</code> is our $\lambda$. But <code>Lasso(alpha=a)</code> minimizes $\frac{1}{2N}\text{RSS} + a\sum_j|\beta_j|$. Multiplying that criterion by $2N$ (which doesn't change where its minimum is) gives $\text{RSS} + 2Na\sum_j|\beta_j|$, so the lasso's <code>alpha</code> corresponds to $\lambda = 2N \times$ <code>alpha</code>. In the rest of the notebook we work directly with <code>scikit-learn</code>'s <code>alpha</code>, but keep in mind that the numbers are not comparable between ridge and the lasso.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>OLS slope: 0.4686
-
- lambda | ridge: formula  sklearn | lasso: formula  sklearn
-     10 |         0.4118   0.4118 |         0.3996   0.3996
-     50 |         0.2773   0.2773 |         0.1238   0.1238
-    100 |         0.1970   0.1970 |         0.0000   0.0000
-    150 |         0.1527   0.1527 |         0.0000   0.0000
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8884eff">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8173b090">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The formulas match <code>scikit-learn</code> exactly. Notice how the two estimators behave as $\lambda$ rises: the ridge estimate falls gradually but stays positive, while the lasso estimate falls by a fixed amount for each increase in $\lambda$ and then hits zero once $\lambda$ is large enough.</p>
 <h3 id="Standardize-the-predictors-first">Standardize the predictors first<a class="anchor-link" href="#Standardize-the-predictors-first">¶</a></h3><p>The penalty treats every coefficient the same way, but the size of a coefficient depends on the units of its predictor. Measure a predictor in percent rather than in decimals and its OLS coefficient becomes 100 times smaller, so it is penalized much less -- even though nothing about its information content has changed. To put all predictors on an equal footing, the standard practice is to <strong>standardize</strong> each predictor (subtract its mean and divide by its standard deviation) before running ridge or the lasso. This is the same issue that came up in <code>PCA.ipynb</code>, where results also depend on the units of the variables. Our simulated predictors are already standard normal, so we can skip this step for now; in the Goyal-Welch application, whose predictors come in very different units, <code>oos_forecasts</code> standardizes them, using only the data in each estimation window.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a4baf728">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=561b023a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8474,12 +8405,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=77058a65">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f769af69">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ridge_alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -8527,7 +8458,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1bef236a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=49c06c47">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8538,12 +8469,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e5c2ece9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9e95946e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'alpha'</span><span class="si">:</span><span class="s2">&gt;9</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'test MSE'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'avg |slope|, x0-x5'</span><span class="si">:</span><span class="s2">&gt;18</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'avg |slope|, x6-x49'</span><span class="si">:</span><span class="s2">&gt;19</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -8579,7 +8510,7 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a74721f7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ae388a2d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8590,12 +8521,12 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=eabd5717">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d7345248">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">lasso_alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -8620,7 +8551,7 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a352b7b3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=54ddb6ee">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8631,12 +8562,12 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=23fe2849">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d233a1ea">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'alpha'</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'test MSE'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'# nonzero slopes'</span><span class="si">:</span><span class="s2">&gt;16</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'# of x0-x5 kept'</span><span class="si">:</span><span class="s2">&gt;15</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'# of x6-x49 kept'</span><span class="si">:</span><span class="s2">&gt;16</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -8671,7 +8602,7 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=35f89c42">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c9233f31">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8682,7 +8613,7 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6327778d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=814d3bac">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8707,12 +8638,12 @@ Benchmarks: training-sample mean 61.9, true model 41.5
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d4ae2a0a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9d34a5d5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ridgecv</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="n">ridge_alphas</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>      <span class="c1">#leave-one-out CV</span>
@@ -8749,12 +8680,12 @@ x33   -0.87
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7d695eed">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3b6498c0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">cv_mse</span> <span class="o">=</span> <span class="n">lassocv</span><span class="o">.</span><span class="n">mse_path_</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>        <span class="c1">#average MSE across the 10 folds, for each candidate alpha</span>
@@ -8787,7 +8718,7 @@ x33   -0.87
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7f77e572">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73b78a56">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8798,12 +8729,12 @@ x33   -0.87
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=59adbf3b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=755950de">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">'OLS, all 50 predictors'</span><span class="p">:</span> <span class="n">test_mse</span><span class="p">(</span><span class="n">ols</span><span class="p">),</span>
@@ -8822,7 +8753,7 @@ x33   -0.87
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8874,7 +8805,7 @@ x33   -0.87
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e7dd5059">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=77f97ff8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8886,7 +8817,7 @@ x33   -0.87
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=702cd15a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c7f063b7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8896,12 +8827,12 @@ x33   -0.87
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=656fb4eb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2cf987ca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">n_sims</span> <span class="o">=</span> <span class="mi">200</span>
@@ -8955,7 +8886,7 @@ Fraction of datasets in which the lasso beats the mean: 0.97
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c37a2a6b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c0b36285">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8966,12 +8897,12 @@ Fraction of datasets in which the lasso beats the mean: 0.97
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=96c02013">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3d5cf779">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">sel_rate</span> <span class="o">=</span> <span class="n">mc_selected</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -9009,7 +8940,7 @@ Fraction of datasets in which the lasso beats the mean: 0.97
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b8e03398">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7382a474">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9020,7 +8951,7 @@ Fraction of datasets in which the lasso beats the mean: 0.97
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d7d43a24">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7baabd88">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9036,12 +8967,12 @@ Fraction of datasets in which the lasso beats the mean: 0.97
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=077f9003">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=37371d9c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">cv5</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>        <span class="c1">#5 contiguous blocks of years (no shuffling)</span>
@@ -9084,12 +9015,12 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=49d8a18c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=73644dc9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
@@ -9121,12 +9052,12 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d1fab469">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=257b1689">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
@@ -9161,7 +9092,7 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31682793">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18d29ec0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9179,7 +9110,7 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2e2e8bf1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=486570ec">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9188,7 +9119,7 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 <h2 id="Takeaways">Takeaways<a class="anchor-link" href="#Takeaways">¶</a></h2><ul>
 <li><strong>OLS overfits when there are many predictors relative to observations.</strong> In the simulation, OLS with 50 predictors and 100 observations had a training MSE far below the noise variance and a test MSE far above it, worse even than ignoring the predictors and using the sample mean. With more coefficients than observations, OLS has no unique solution at all.</li>
 <li><strong>Ridge and the lasso are penalized least squares.</strong> Both add a penalty on the size of the slopes to the RSS, with a parameter $\lambda$ that moves the estimates from OLS ($\lambda = 0$) toward the sample mean ($\lambda \to \infty$). Shrinking trades a little bias for a large reduction in variance. Because the penalty depends on units, predictors should be standardized first.</li>
-<li><strong>Ridge shrinks proportionally; the lasso soft-thresholds.</strong> With one predictor, ridge multiplies the OLS estimate by $S_{xx}/(S_{xx}+\lambda)$, while the lasso subtracts a fixed amount and sets small estimates exactly to zero. So the lasso performs variable selection and produces sparse models; ridge keeps every predictor.</li>
+<li><strong>Ridge shrinks proportionally; the lasso soft-thresholds.</strong> With one predictor, ridge multiplies the OLS estimate by a shrinkage factor between zero and one, while the lasso subtracts a fixed amount and sets small estimates exactly to zero. So the lasso performs variable selection and produces sparse models; ridge keeps every predictor.</li>
 <li><strong>Cross-validation chooses $\lambda$ using only the training data,</strong> by repeatedly holding out part of the training sample and choosing the penalty with the smallest average prediction error on the held-out parts. The cross-validated MSE has a U-shape with a "Goldilocks" minimum.</li>
 <li><strong>In repeated simulations, both regularized methods beat OLS and the sample mean nearly every time.</strong> The lasso reliably kept the strong predictors, but missed weak ones about half the time and let in some irrelevant ones, so the particular set of variables it selects should be interpreted cautiously.</li>
 <li><strong>On the Goyal-Welch data, regularization rescues the kitchen sink from disaster, but does not turn it into a winner.</strong> Ridge roughly breaks even with the historical average out of sample and the lasso loses modestly, compared with an OOS $R^2$ of around -64% for OLS. Most of the time cross-validation shrinks the forecasts nearly all the way to the historical average; the remaining losses come from a few early years, when the estimation window was short and cross-validation itself was unreliable.</li>
@@ -9198,14 +9129,98 @@ Lasso: average number of predictors kept = 1.4 of 9; fraction of years with none
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=96d0cfa8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ab4d82a3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Additional-Technical-Material">Additional Technical Material<a class="anchor-link" href="#Additional-Technical-Material">¶</a></h2><p>This appendix writes OLS and ridge regression in matrix notation, derives the ridge estimator, and makes precise the statements in the main text about why OLS fails when $p + 1 &gt; N$ and why ridge does not.</p>
-<p><strong>This appendix uses matrix and vector notation from <code>BasicsLinearAlgebra.ipynb</code>, including matrix inverses and the idea of a singular (non-invertible) matrix. It is optional and safe to skip.</strong></p>
+<h2 id="Additional-Technical-Material">Additional Technical Material<a class="anchor-link" href="#Additional-Technical-Material">¶</a></h2><p>This appendix collects the technical details behind results stated in the main text. The first subsection derives the one-predictor ridge and lasso estimates, using only algebra and a little calculus. The remaining subsections write OLS and ridge regression in matrix notation, derive the ridge estimator, and make precise the statements in the main text about why OLS fails when $p + 1 &gt; N$ and why ridge does not.</p>
+<h3 id="Ridge-and-lasso-with-a-single-predictor">Ridge and lasso with a single predictor<a class="anchor-link" href="#Ridge-and-lasso-with-a-single-predictor">¶</a></h3><p>This subsection derives the one-predictor results stated in the main text. To keep the algebra simple, suppose $X_i$ and $Y_i$ have both been de-meaned, so that we can drop the intercept. The OLS slope is then</p>
+<p>$$
+\hat{\beta}^{OLS} = \frac{\sum_i X_i Y_i}{\sum_i X_i^2}.
+$$</p>
+<p>Write $S_{xx} = \sum_i X_i^2$ and $S_{xy} = \sum_i X_i Y_i$, so $\hat{\beta}^{OLS} = S_{xy} / S_{xx}$. Expanding the square, the RSS is</p>
+<p>$$
+\text{RSS}(\beta) = \sum_i (Y_i - \beta X_i)^2 = \sum_i Y_i^2 - 2\beta S_{xy} + \beta^2 S_{xx},
+$$</p>
+<p>a parabola in $\beta$ whose slope (derivative) is $-2S_{xy} + 2\beta S_{xx}$.</p>
+<p><strong>Ridge.</strong> The ridge criterion is $\text{RSS}(\beta) + \lambda\beta^2$. Setting its derivative to zero,</p>
+<p>$$
+-2S_{xy} + 2\beta S_{xx} + 2\lambda\beta = 0 \quad\Longrightarrow\quad \hat{\beta}^{R} = \frac{S_{xy}}{S_{xx} + \lambda} = \hat{\beta}^{OLS} \times \frac{S_{xx}}{S_{xx} + \lambda}.
+$$</p>
+<p>Ridge multiplies the OLS estimate by a shrinkage factor between zero and one. The factor is one when $\lambda = 0$ and falls toward zero as $\lambda$ grows, but it never reaches zero for any finite $\lambda$. Ridge shrinks <em>proportionally</em>: a big OLS coefficient and a small one are shrunk by the same percentage, and neither becomes exactly zero.</p>
+<p><strong>Lasso.</strong> The lasso criterion is $\text{RSS}(\beta) + \lambda|\beta|$. The absolute value has a kink at zero, so we consider the cases $\beta &gt; 0$ and $\beta &lt; 0$ separately. For $\beta &gt; 0$, $|\beta| = \beta$, and setting the derivative to zero gives</p>
+<p>$$
+-2S_{xy} + 2\beta S_{xx} + \lambda = 0 \quad\Longrightarrow\quad \beta = \hat{\beta}^{OLS} - \frac{\lambda}{2S_{xx}},
+$$</p>
+<p>which is a valid solution only if it is actually positive, i.e., if $\hat{\beta}^{OLS} &gt; \lambda / (2S_{xx})$. Symmetrically, for $\beta &lt; 0$, $|\beta| = -\beta$, and we get $\beta = \hat{\beta}^{OLS} + \lambda/(2S_{xx})$, valid only if $\hat{\beta}^{OLS} &lt; -\lambda/(2S_{xx})$. What if $\hat{\beta}^{OLS}$ is between these two thresholds? Then neither case has a solution, and the minimum is at the kink, $\beta = 0$. The reason: starting from $\beta = 0$, a small move of size $\delta$ in either direction lowers the RSS at a rate of at most $2|S_{xy}|$ per unit of $\delta$ (the slope of the RSS parabola at zero), but raises the penalty at the rate $\lambda$. If $2|S_{xy}| &lt; \lambda$ -- equivalently, $|\hat{\beta}^{OLS}| &lt; \lambda/(2S_{xx})$ -- moving away from zero costs more than it gains. Putting the three cases together, with $c = \lambda / (2 S_{xx})$:</p>
+<p>$$
+\hat{\beta}^{L} = \begin{cases} \hat{\beta}^{OLS} - c &amp; \text{if } \hat{\beta}^{OLS} &gt; c \\ 0 &amp; \text{if } |\hat{\beta}^{OLS}| \le c \\ \hat{\beta}^{OLS} + c &amp; \text{if } \hat{\beta}^{OLS} &lt; -c. \end{cases}
+$$</p>
+<p>This is called <strong>soft thresholding</strong>. The lasso subtracts a fixed amount $c$ from the size of the OLS coefficient, and if the OLS coefficient is smaller than $c$ to begin with, it is set to exactly zero. Small, probably-noise coefficients are eliminated, while large coefficients survive (shrunk by $c$).</p>
+<p>The next cell verifies these formulas numerically, using <code>scikit-learn</code>'s <code>Ridge</code> and <code>Lasso</code> estimators on a small simulated dataset with one predictor (with <code>fit_intercept=False</code>, since we de-mean the data ourselves, and converting $\lambda$ to the lasso's <code>alpha</code> as described in the main text).</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=49982a77">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rng1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">rng1</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">rng1</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                  <span class="c1">#de-mean, so no intercept is needed</span>
+<span class="n">S_xx</span><span class="p">,</span> <span class="n">S_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x1</span> <span class="o">*</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">b_hat_ols</span> <span class="o">=</span> <span class="n">S_xy</span> <span class="o">/</span> <span class="n">S_xx</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"OLS slope: </span><span class="si">{</span><span class="n">b_hat_ols</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'lambda'</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'ridge: formula'</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'sklearn'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'lasso: formula'</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'sklearn'</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">]:</span>
+    <span class="n">ridge_formula</span> <span class="o">=</span> <span class="n">S_xy</span> <span class="o">/</span> <span class="p">(</span><span class="n">S_xx</span> <span class="o">+</span> <span class="n">lam</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S_xx</span><span class="p">)</span>
+    <span class="n">lasso_formula</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">b_hat_ols</span><span class="p">)</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">b_hat_ols</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ridge_sk</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lam</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y1</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lasso_sk</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lam</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n1</span><span class="p">),</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y1</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">lam</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">ridge_formula</span><span class="si">:</span><span class="s2">&gt;14.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ridge_sk</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">lasso_formula</span><span class="si">:</span><span class="s2">&gt;14.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">lasso_sk</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>OLS slope: 0.4686
+
+ lambda | ridge: formula  sklearn | lasso: formula  sklearn
+     10 |         0.4118   0.4118 |         0.3996   0.3996
+     50 |         0.2773   0.2773 |         0.1238   0.1238
+    100 |         0.1970   0.1970 |         0.0000   0.0000
+    150 |         0.1527   0.1527 |         0.0000   0.0000
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b38245d1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The formulas match <code>scikit-learn</code> exactly. Notice how the two estimators behave as $\lambda$ rises: the ridge estimate falls gradually but stays positive, while the lasso estimate falls by a fixed amount for each increase in $\lambda$ and then hits zero once $\lambda$ is large enough.</p>
+<p><strong>The rest of this appendix uses matrix and vector notation from <code>BasicsLinearAlgebra.ipynb</code>, including matrix inverses and the idea of a singular (non-invertible) matrix. It is optional and safe to skip.</strong></p>
 <h3 id="OLS-and-ridge-in-matrix-form">OLS and ridge in matrix form<a class="anchor-link" href="#OLS-and-ridge-in-matrix-form">¶</a></h3><p>Stack the outcomes in an $N \times 1$ vector $Y$, and the predictors in an $N \times p$ matrix $X$ whose $(i, j)$ element is $X_{i,j}$. To keep the algebra clean, assume that $Y$ and every column of $X$ have been de-meaned, so that the intercept is zero and can be dropped (with de-meaned data the OLS and ridge intercepts are both zero, so this loses nothing). With a $p \times 1$ coefficient vector $\beta$, the RSS is</p>
 <p>$$
 \text{RSS}(\beta) = (Y - X\beta)^{\prime}(Y - X\beta) = Y^{\prime}Y - 2\beta^{\prime}X^{\prime}Y + \beta^{\prime}X^{\prime}X\beta.
@@ -9219,7 +9234,7 @@ $$</p>
 <p>$$
 \hat{\beta}^{R} = (X^{\prime}X + \lambda I)^{-1}X^{\prime}Y.
 $$</p>
-<p>With one predictor, $X^{\prime}X = S_{xx}$ and $X^{\prime}Y = S_{xy}$, and this is the formula $S_{xy}/(S_{xx} + \lambda)$ from the main text.</p>
+<p>With one predictor, $X^{\prime}X = S_{xx}$ and $X^{\prime}Y = S_{xy}$, and this is the formula $S_{xy}/(S_{xx} + \lambda)$ from the first subsection of this appendix.</p>
 <p>Unlike $X^{\prime}X$, the matrix $X^{\prime}X + \lambda I$ is <strong>always invertible</strong> when $\lambda &gt; 0$, no matter how large $p$ is. To see why, take any nonzero $p \times 1$ vector $v$. Then</p>
 <p>$$
 v^{\prime}(X^{\prime}X + \lambda I)v = (Xv)^{\prime}(Xv) + \lambda v^{\prime}v = \sum_i (Xv)_i^2 + \lambda\sum_j v_j^2 &gt; 0,
@@ -9229,7 +9244,7 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=62737601">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a9b5bb9c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
