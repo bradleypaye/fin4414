@@ -92,7 +92,8 @@ See `.gitignore` for how this is enforced in practice.
   inflation, book-to-market, net issuance, stock variance), 1926 through 2024.
   Source: the "Annual" sheet of Amit Goyal's `GWPredictorData2024.xlsx`
   (same source as above), with Goyal's column names except `yyyy` renamed
-  `year`. Used by `notebooks/PredictiveRegressions.ipynb`.
+  `year`. Used by `notebooks/PredictiveRegressions.ipynb` and
+  `notebooks/Regularization.ipynb`.
 - `fred_macro.csv` — monthly snapshot of five FRED series, January 1947
   through June 2026, pulled September 28, 2026: real GDP (`GDPC1`, quarterly,
   so blank in non-quarter-start months), CPI (`CPIAUCSL`), Moody's BAA and
