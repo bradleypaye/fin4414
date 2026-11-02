@@ -22,6 +22,7 @@ data/*
 # by name anywhere in the repo, in any format (.ipynb, .docx, .pdf, ...).
 assessments/
 Assessment*
+*Exam*
 Homework*
 HW[0-9]*
 *_Solution*
